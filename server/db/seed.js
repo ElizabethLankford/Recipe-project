@@ -1,16 +1,18 @@
 const client = require("./client");
-const { recipes, ingredients, measurements } = require("./seedData");
+const { recipes, ingredients, measurements, users } = require("./seedData");
 
 const dropTables = async () => {
   try {
     console.log("Dropping tables...");
     await client.query(`
+        DROP TABLE IF EXISTS user_recipes;
+        DROP TABLE IF EXISTS recipe_ingredients;
         DROP TABLE IF EXISTS recipes;
         DROP TABLE IF EXISTS ingredients;
         DROP TABLE IF EXISTS measurements;
         DROP TABLE IF EXISTS users;
-        DROP TABLE IF EXISTS user_recipes;
-        DROP TABLE IF EXISTS recipe_ingredients;
+        
+
         `);
   } catch (error) {
     console.log("Error dropping tables");
@@ -62,11 +64,90 @@ const createTables = async () => {
   }
 };
 
+const createInitialRecipes = async () => {
+  try {
+    const recipePromise = recipes.map((recipe) => {
+      return client.query(
+        `
+        INSERT INTO recipes(name,description,instructions,category)
+        VALUES($1, $2, $3, $4)
+        RETURNING *;
+        `,
+        Object.values(recipe)
+      );
+    });
+    await Promise.all(recipePromise);
+    console.log("created recipes!");
+  } catch (error) {
+    throw error;
+  }
+};
+
+const createInitialIngredients = async () => {
+  try {
+    const ingredientsPromise = ingredients.map((ing) => {
+      return client.query(
+        `
+        INSERT INTO ingredients (name)
+        VALUES ($1)
+        RETURNING *;
+        `,
+        Object.values(ing)
+      );
+    });
+    await Promise.all(ingredientsPromise);
+    console.log("Finished creating ingredients!");
+  } catch (error) {
+    throw error;
+  }
+};
+
+const createInitialMeasurements = async () => {
+  try {
+    const measurementsPromise = measurements.map((unit) => {
+      return client.query(
+        `
+            INSERT INTO measurements (name)
+            VALUES ($1)
+            RETURNING *;
+            `,
+        Object.values(unit)
+      );
+    });
+    await Promise.all(measurementsPromise);
+    console.log("Finished creating measurements!");
+  } catch (error) {
+    throw error;
+  }
+};
+
+const createInitialUsers = async () => {
+  try {
+    const usersPromise = users.map((user) => {
+      return client.query(
+        `
+            INSERT INTO users (username,password,firstname,lastname,email)
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING *;
+            `,
+        Object.values(user)
+      );
+    });
+    await Promise.all(usersPromise);
+  } catch (error) {
+    throw error;
+  }
+};
 const buildDb = async () => {
   try {
     client.connect();
     await dropTables();
     await createTables();
+
+    await createInitialRecipes();
+    await createInitialIngredients();
+    await createInitialMeasurements();
+    await createInitialUsers();
   } catch (error) {
     console.error(error);
   } finally {

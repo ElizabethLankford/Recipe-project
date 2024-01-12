@@ -3,13 +3,13 @@ const recipes = [
     name: "grilled cheese",
     description: "sandwitch",
     instructions: "cook",
-    catergory: "lunch",
+    category: "lunch",
   },
   {
     name: "chicken salad",
     description: "salad",
     instructions: "mix ingredients",
-    catergory: "side",
+    category: "side",
   },
 ];
 
@@ -24,16 +24,18 @@ const measurements = [
 const users = [
   {
     username: "elilank",
+    password: "test",
     firstname: "eli",
     lastname: "lankford",
     email: "elank@email.com",
   },
   {
-    username: "morty",
+    username: "mortysmith",
+    password: "test",
     firstname: "morty",
     lastname: "smith",
     email: "msmith@email.com",
   },
 ];
 
-module.exports = { recipes, ingredients, measurements };
+module.exports = { recipes, ingredients, measurements, users };
