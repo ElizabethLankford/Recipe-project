@@ -60,12 +60,14 @@ router.delete("/:id", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
   try {
-    const { username, password } = req.body;
-    const user = await getUserByUsername(username);
-    const validPassword = await bcrypt.compare(password, user.password);
+    const user = await getUserByUsername(req.body.username);
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
 
     if (validPassword) {
-      const token = jwt.sign(trainer, JWT_SECRET);
+      const token = jwt.sign(user, JWT_SECRET);
       res.cookie("token", token, {
         sameSite: "strict",
         httpOnly: true,
@@ -73,6 +75,8 @@ router.post("/login", async (req, res, next) => {
       });
       delete user.password;
       res.send({ token, user });
+    } else {
+      res.send("not allowed");
     }
   } catch (error) {
     next(error);
