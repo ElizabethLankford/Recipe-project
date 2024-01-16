@@ -2,12 +2,14 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = require("../secrets");
 const SALT_ROUNDS = 10;
 
 const {
   createUser,
   getAllUsers,
   getUserByUsername,
+  deleteUser,
 } = require("../db/sqlHelperFuncs/users");
 
 //GET = /api/users = get all users
@@ -33,6 +35,23 @@ router.post("/register", async (req, res, next) => {
       email,
     });
     delete user.password;
+
+    const token = jwt.sign(user, JWT_SECRET);
+    res.cookie("token", token, {
+      sameSite: "strict",
+      httpOnly: true,
+      signed: true,
+    });
+    delete user.password;
+    res.send({ token, user });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const user = await deleteUser(req.params.id);
     res.send(user);
   } catch (error) {
     next(error);
@@ -41,6 +60,20 @@ router.post("/register", async (req, res, next) => {
 
 router.post("/login", async (req, res, next) => {
   try {
+    const { username, password } = req.body;
+    const user = await getUserByUsername(username);
+    const validPassword = await bcrypt.compare(password, user.password);
+
+    if (validPassword) {
+      const token = jwt.sign(trainer, JWT_SECRET);
+      res.cookie("token", token, {
+        sameSite: "strict",
+        httpOnly: true,
+        signed: true,
+      });
+      delete user.password;
+      res.send({ token, user });
+    }
   } catch (error) {
     next(error);
   }
@@ -48,6 +81,15 @@ router.post("/login", async (req, res, next) => {
 
 router.post("/logout", async (req, res, next) => {
   try {
+    res.clearCookie("token", {
+      sameSite: "strict",
+      httpOnly: true,
+      signed: true,
+    });
+    res.send({
+      loggedIn: false,
+      message: "Logged out",
+    });
   } catch (error) {
     next(error);
   }

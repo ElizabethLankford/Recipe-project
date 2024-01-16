@@ -52,4 +52,16 @@ const getUserByUsername = async (username) => {
   }
 };
 
-module.exports = { createUser, getAllUsers, getUserByUsername };
+const deleteUser = async (id) => {
+  try {
+    const { rows } = await client.query(
+      `DELETE FROM users WHERE "id"=$1 RETURNING *`,
+      [id]
+    );
+    return rows[0];
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = { createUser, getAllUsers, getUserByUsername, deleteUser };
