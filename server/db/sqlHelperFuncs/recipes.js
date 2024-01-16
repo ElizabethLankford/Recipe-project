@@ -29,11 +29,9 @@ const createRecipe = async (body) => {
     const {
       rows: [recipe],
     } = await client.query(
-      `
-    INSERT INTO recipes(name,description,instructions,category)
+      `INSERT INTO recipes(name, description, instructions, category)
     VALUES($1, $2, $3, $4)
-    RETURNING *;
-    `,
+    RETURNING *;`,
       [body.name, body.description, body.instructions, body.category]
     );
     return recipe;
@@ -42,7 +40,7 @@ const createRecipe = async (body) => {
   }
 };
 
-const updateRecipe = async (recipeId, fields) => {
+const updateRecipe = async (id, fields) => {
   try {
     const toUpdate = {};
     for (let column in fields) {
@@ -53,13 +51,14 @@ const updateRecipe = async (recipeId, fields) => {
     if (util.dbFields(toUpdate).insert.length > 0) {
       const { rows } = await client.query(
         `
-        UPDATE recipes SET ${util.dbFields(toUpdate).insert}
-        WHERE "id"=${recipeId}
+        UPDATE recipes 
+        SET ${util.dbFields(toUpdate).insert}
+        WHERE id=${id}
         RETURNING *;
         `,
         Object.values(toUpdate)
       );
-      recipe.rows[0];
+      recipe = rows[0];
     }
     return recipe;
   } catch (error) {

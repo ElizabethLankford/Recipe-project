@@ -19,8 +19,10 @@ const createUser = async ({
         email)
     VALUES($1, $2, $3, $4, $5)
     RETURNING *;
-    `[(username, password, firstname, lastname, email)]
+    `,
+      [username, password, firstname, lastname, email]
     );
+    return user;
   } catch (error) {
     throw error;
   }

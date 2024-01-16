@@ -9,9 +9,9 @@ const {
   getAllUsers,
   getUserByUsername,
 } = require("../db/sqlHelperFuncs/users");
-const { use } = require("./recipes");
 
-router.post("/register", async (req, res, next) => {
+//GET = /api/users = get all users
+router.get("/", async (req, res, next) => {
   try {
     const users = await getAllUsers();
     res.send(users);
@@ -20,6 +20,7 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
+//POST = /api/users/register = create a new user
 router.post("/register", async (req, res, next) => {
   try {
     const { username, password, firstname, lastname, email } = req.body;
@@ -32,22 +33,24 @@ router.post("/register", async (req, res, next) => {
       email,
     });
     delete user.password;
-    res.send({ user });
+    res.send(user);
   } catch (error) {
     next(error);
   }
 });
 
-router.post("/register", async (req, res, next) => {
+router.post("/login", async (req, res, next) => {
   try {
   } catch (error) {
     next(error);
   }
 });
 
-router.post("/register", async (req, res, next) => {
+router.post("/logout", async (req, res, next) => {
   try {
   } catch (error) {
     next(error);
   }
 });
+
+module.exports = router;
