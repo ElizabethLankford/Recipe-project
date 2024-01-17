@@ -1,14 +1,13 @@
 //Recipe calls
 const fetchAllRecipes = async () => {
   try {
-    const request = await fetch();
+    const request = await fetch(`http://localhost:8081/api/recipes`);
     const response = request.json();
-    console.log(response);
+    return response;
   } catch (error) {
     console.log(error);
   }
 };
-fetchAllRecipes();
 const fetchRecipeById = async () => {
   try {
     const request = await fetch();
