@@ -8,9 +8,9 @@ const fetchAllRecipes = async () => {
     console.log(error);
   }
 };
-const fetchRecipeById = async () => {
+const fetchRecipeById = async (id) => {
   try {
-    const request = await fetch();
+    const request = await fetch(`http://localhost:8081/api/recipes/${id}`);
     const response = await request.json();
     console.log(response);
   } catch (error) {
@@ -19,25 +19,25 @@ const fetchRecipeById = async () => {
 };
 const addNewRecipe = async () => {
   try {
-    const request = await fetch();
+    const request = await fetch(`http://localhost:8081/api/recipes`);
     const response = await request.json();
     console.log(response);
   } catch (error) {
     console.log(error);
   }
 };
-const updateRecipe = async () => {
+const updateRecipe = async (id) => {
   try {
-    const request = await fetch();
+    const request = await fetch(`http://localhost:8081/api/recipes/${id}`);
     const response = await request.json();
     console.log(response);
   } catch (error) {
     console.log(error);
   }
 };
-const deleteRecipe = async () => {
+const deleteRecipe = async (id) => {
   try {
-    const request = await fetch();
+    const request = await fetch(`http://localhost:8081/api/recipes${id}`);
     const response = await request.json();
     console.log(response);
   } catch (error) {
@@ -47,7 +47,7 @@ const deleteRecipe = async () => {
 // User calls
 const fetchAllUsers = async () => {
   try {
-    const request = await fetch();
+    const request = await fetch(`http://localhost:8081/api/users`);
     const response = await request.json();
     console.log(response);
   } catch (error) {
@@ -56,7 +56,16 @@ const fetchAllUsers = async () => {
 };
 const fetchUserByUsername = async () => {
   try {
-    const request = await fetch();
+    const request = await fetch(`http://localhost:8081/api/users/login`);
+    const response = await request.json();
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+const logoutUser = async () => {
+  try {
+    const request = await fetch(`http://localhost:8081/api/users/logout`);
     const response = await request.json();
     console.log(response);
   } catch (error) {
@@ -65,7 +74,16 @@ const fetchUserByUsername = async () => {
 };
 const addNewUser = async () => {
   try {
-    const request = await fetch();
+    const request = await fetch(`http://localhost:8081/api/users/register`);
+    const response = await request.json();
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+const deleteUser = async (userId) => {
+  try {
+    const request = await fetch(`http://localhost:8081/api/users/${userId}`);
     const response = await request.json();
     console.log(response);
   } catch (error) {
@@ -81,5 +99,7 @@ export {
   deleteRecipe,
   fetchAllUsers,
   fetchUserByUsername,
+  logoutUser,
   addNewUser,
+  deleteUser,
 };
