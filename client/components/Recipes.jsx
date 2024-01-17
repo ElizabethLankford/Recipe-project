@@ -16,7 +16,7 @@ function Recipes() {
       {recipes?.map((recipe) => {
         return (
           <div key={recipe.id} className="recipe-card">
-            <p>Name: {recipe.name}</p>
+            <h3>Name: {recipe.name}</h3>
             <p>Description: {recipe.description}</p>
             <p>Instructions: {recipe.instructions}</p>
             <p>Category: {recipe.category}</p>
