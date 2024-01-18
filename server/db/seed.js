@@ -127,9 +127,9 @@ const createInitialRecipe_Ingredients = async () => {
   try {
     await client.query(`
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-   VALUES (1,1, NULL, 1);
+   VALUES (1,1, 10, 1);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-   VALUES (1,2, NULL, 2);
+   VALUES (1,2, 10, 2);
 
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
    VALUES (2,8, 5, 1);
@@ -137,7 +137,7 @@ const createInitialRecipe_Ingredients = async () => {
    VALUES (2,9, 5, 1);
 
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-   VALUES (3,3, NULL, 2);
+   VALUES (3,3, 10, 2);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
    VALUES (3,6, 5, 1);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)

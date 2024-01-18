@@ -25,13 +25,20 @@ const getRecipeById = async (recipeId) => {
 };
 const getRecipeIngredients = async (recipeId) => {
   try {
-    const {
-      rows: [recipe],
-    } = await client.query(`
-    SELECT * FROM recipes 
-    WHERE "id" = ${recipeId};
+    const { rows } = await client.query(`
+    SELECT
+          i.name AS ingredientName,
+          q.ingredient_quantity AS ingredientQuantity,
+          m.name AS measurementName
+    FROM ingredients AS i
+    JOIN recipe_ingredients AS q On q.ingredient_id = i.id
+    JOIN measurements AS m On m.id = q.measure_id
+    JOIN recipes AS r On r.id = q.recipe_id
+    WHERE r.id = ${recipeId}
+    ORDER BY i.name ASC
+    ;
     `);
-    return recipe;
+    return rows;
   } catch (error) {
     throw error;
   }

@@ -17,6 +17,19 @@ const fetchRecipeById = async (id) => {
     console.log(error);
   }
 };
+
+const fetchRecipeIngredients = async (id) => {
+  try {
+    const request = await fetch(
+      `http://localhost:8081/api/recipes/${id}/ingredients`
+    );
+    const response = await request.json();
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const addNewRecipe = async () => {
   try {
     const request = await fetch(`http://localhost:8081/api/recipes`);
@@ -94,6 +107,7 @@ const deleteUser = async (userId) => {
 export {
   fetchAllRecipes,
   fetchRecipeById,
+  fetchRecipeIngredients,
   addNewRecipe,
   updateRecipe,
   deleteRecipe,

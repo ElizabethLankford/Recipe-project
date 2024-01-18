@@ -3,6 +3,7 @@ const router = express.Router();
 const {
   getAllRecipes,
   getRecipeById,
+  getRecipeIngredients,
   createRecipe,
   updateRecipe,
   deleteRecipe,
@@ -23,6 +24,16 @@ router.get("/:id", async (req, res, next) => {
   try {
     const recipe = await getRecipeById(req.params.id);
     res.send(recipe);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//GET - /api/recipes/id/ingredients = get recipe ingredients
+router.get("/:id/ingredients", async (req, res, next) => {
+  try {
+    const recipeIng = await getRecipeIngredients(req.params.id);
+    res.send(recipeIng);
   } catch (error) {
     next(error);
   }
