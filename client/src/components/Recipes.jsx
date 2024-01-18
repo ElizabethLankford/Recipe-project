@@ -1,18 +1,7 @@
-// import { useState, useEffect } from "react";
-// import { fetchAllRecipes } from "../../fetching";
 import { useFetchRecipesQuery } from "../redux/recipeApi";
+import { Link } from "react-router-dom";
 
 function Recipes() {
-  // const [recipes, setRecipes] = useState(null);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const res = await fetchAllRecipes();
-  //     setRecipes(res);
-  //   };
-  //   fetchData();
-  // }, []);
-  // console.log(recipes);
   const { data = {}, error, isLoading } = useFetchRecipesQuery();
 
   if (isLoading) {
@@ -31,6 +20,7 @@ function Recipes() {
             <p>Description: {recipe.description}</p>
             <p>Instructions: {recipe.instructions}</p>
             <p>Category: {recipe.category}</p>
+            <Link to={`/recipes/${recipe.id}`}>Recipe Details</Link>
           </div>
         );
       })}
