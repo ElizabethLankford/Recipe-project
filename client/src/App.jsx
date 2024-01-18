@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Recipes from "../components/Recipes";
-import SingleRecipe from "../components/SingleRecipe";
-import Account from "../components/Account";
-import Login from "../components/Login";
-import Register from "../components/Register";
-import Footer from "../components/Footer";
+import Navbar from "./components/Navbar";
+import Recipes from "./components/Recipes";
+import SingleRecipe from "./components/SingleRecipe";
+import Account from "./components/Account";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
