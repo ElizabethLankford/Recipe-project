@@ -1,7 +1,7 @@
 const recipes = [
   {
     name: "grilled cheese",
-    description: "sandwitch",
+    description: "sandwich",
     instructions: "cook",
     category: "lunch",
   },
@@ -11,15 +11,37 @@ const recipes = [
     instructions: "mix ingredients",
     category: "side",
   },
+  {
+    name: "chocolate cake",
+    description: "cake",
+    instructions: "add eggs, flour, chocolate to pan, bake at 350 for 1 hour",
+    category: "dessert",
+  },
 ];
 
-const ingredients = [{ name: "cheese" }, { name: "bread" }];
+const ingredients = [
+  { name: "cheese" },
+  { name: "bread" },
+  { name: "egg" },
+  { name: "salt" },
+  { name: "sugar" },
+  { name: "flour" },
+  { name: "chocolate" },
+  { name: "chicken" },
+  { name: "salad" },
+  { name: "butter" },
+];
 
 const measurements = [
   { name: "oz" },
+  { name: "fluid oz" },
   { name: "tsp" },
   { name: "tbsp" },
   { name: "cup" },
+  { name: "pint" },
+  { name: "quart" },
+  { name: "gallon" },
+  { name: "pound" },
 ];
 const users = [
   {

@@ -23,7 +23,19 @@ const getRecipeById = async (recipeId) => {
     throw error;
   }
 };
-
+const getRecipeIngredients = async (recipeId) => {
+  try {
+    const {
+      rows: [recipe],
+    } = await client.query(`
+    SELECT * FROM recipes 
+    WHERE "id" = ${recipeId};
+    `);
+    return recipe;
+  } catch (error) {
+    throw error;
+  }
+};
 const createRecipe = async (body) => {
   try {
     const {
@@ -81,6 +93,7 @@ const deleteRecipe = async (recipeId) => {
 module.exports = {
   getAllRecipes,
   getRecipeById,
+  getRecipeIngredients,
   createRecipe,
   updateRecipe,
   deleteRecipe,

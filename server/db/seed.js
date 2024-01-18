@@ -53,9 +53,11 @@ const createTables = async () => {
             have_tried BOOLEAN NOT NULL
         );
         CREATE TABLE recipe_ingredients (
+            recipe_ing_id SERIAL PRIMARY KEY,
             recipe_id INTEGER REFERENCES recipes(id) NOT NULL,
             ingredient_id INTEGER REFERENCES ingredients(id) NOT NULL,
-            measure_id INTEGER REFERENCES measurements(id) NOT NULL
+            measure_id INTEGER REFERENCES measurements(id),
+            ingredient_quantity FLOAT
         );
         `);
     console.log("tables successfully created!");
@@ -121,6 +123,32 @@ const createInitialMeasurements = async () => {
   }
 };
 
+const createInitialRecipe_Ingredients = async () => {
+  try {
+    await client.query(`
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (1,1, NULL, 1);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (1,2, NULL, 2);
+
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (2,8, 5, 1);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (2,9, 5, 1);
+
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (3,3, NULL, 2);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (3,6, 5, 1);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (3,7, 5, 1);
+   `);
+    console.log("Recipe_ingredients table populated!");
+  } catch (error) {
+    throw error;
+  }
+};
+
 const createInitialUsers = async () => {
   try {
     const usersPromise = users.map((user) => {
@@ -147,6 +175,7 @@ const buildDb = async () => {
     await createInitialRecipes();
     await createInitialIngredients();
     await createInitialMeasurements();
+    await createInitialRecipe_Ingredients();
     await createInitialUsers();
   } catch (error) {
     console.error(error);
