@@ -10,6 +10,7 @@ const {
   getAllUsers,
   getUserByUsername,
   deleteUser,
+  getUserFavRecipes,
 } = require("../db/sqlHelperFuncs/users");
 
 //GET = /api/users = get all users
@@ -44,6 +45,15 @@ router.post("/register", async (req, res, next) => {
     });
     delete user.password;
     res.send({ token, user });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/:id", async (req, res, next) => {
+  try {
+    const usersFav = await getUserFavRecipes(req.params.id);
+    res.send(usersFav);
   } catch (error) {
     next(error);
   }

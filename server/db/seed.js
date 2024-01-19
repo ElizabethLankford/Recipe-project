@@ -10,7 +10,6 @@ const dropTables = async () => {
         DROP TABLE IF EXISTS recipes;
         DROP TABLE IF EXISTS ingredients;
         DROP TABLE IF EXISTS measurements;
-        DROP TABLE IF EXISTS users;
         
 
         `);
@@ -39,18 +38,9 @@ const createTables = async () => {
             id SERIAL PRIMARY KEY,
             name VARCHAR(255) NOT NULL
         );
-        CREATE TABLE users (
-            id SERIAL PRIMARY KEY,
-            username VARCHAR(100) UNIQUE NOT NULL,
-            password VARCHAR(100) NOT NULL,
-            firstname VARCHAR(100),
-            lastname VARCHAR(100),
-            email VARCHAR(100)
-        );
         CREATE TABLE user_recipes (
             user_id INTEGER REFERENCES users(id) NOT NULL,
-            recipe_id INTEGER REFERENCES recipes(id) NOT NULL,
-            have_tried BOOLEAN NOT NULL
+            recipe_id INTEGER REFERENCES recipes(id) NOT NULL
         );
         CREATE TABLE recipe_ingredients (
             recipe_ing_id SERIAL PRIMARY KEY,
@@ -166,6 +156,23 @@ const createInitialUsers = async () => {
     throw error;
   }
 };
+
+const createUserRecipes = async () => {
+  try {
+    await client.query(`
+    INSERT INTO user_recipes (user_id,recipe_id)
+    VALUES (5,3 );
+    INSERT INTO user_recipes (user_id,recipe_id)
+    VALUES (5,2 );
+    INSERT INTO user_recipes (user_id,recipe_id)
+    VALUES (6,3 );
+    `);
+    console.log("created users recipes!");
+  } catch (error) {
+    throw error;
+  }
+};
+
 const buildDb = async () => {
   try {
     client.connect();
@@ -176,7 +183,7 @@ const buildDb = async () => {
     await createInitialIngredients();
     await createInitialMeasurements();
     await createInitialRecipe_Ingredients();
-    await createInitialUsers();
+    await createUserRecipes();
   } catch (error) {
     console.error(error);
   } finally {

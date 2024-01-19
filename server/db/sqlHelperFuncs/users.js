@@ -64,4 +64,30 @@ const deleteUser = async (id) => {
   }
 };
 
-module.exports = { createUser, getAllUsers, getUserByUsername, deleteUser };
+const getUserFavRecipes = async (userId) => {
+  try {
+    const { rows } = await client.query(`
+    SELECT 
+            u.user_id AS userID,
+            r.id AS recipeID,
+            r.name AS recipeName,
+            r.description AS recipeDes,
+            r.instructions AS recipeSteps,
+            r.category AS recipeCategory
+    FROM user_recipes AS u
+    JOIN recipes AS r ON u.recipe_id = r.id 
+    WHERE user_id = ${userId};
+    `);
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+};
+
+module.exports = {
+  createUser,
+  getAllUsers,
+  getUserByUsername,
+  deleteUser,
+  getUserFavRecipes,
+};

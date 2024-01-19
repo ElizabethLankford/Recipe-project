@@ -41,6 +41,14 @@ const recipeApi = createApi({
         body: { username, password },
       }),
     }),
+    fetchAllUsers: builder.query({
+      query: () => "users",
+      providesTags: ["User"],
+    }),
+    fetchUsersFavRecipes: builder.query({
+      query: (userId) => `users/${userId}`,
+      providesTags: ["User"],
+    }),
   }),
 });
 
@@ -52,4 +60,6 @@ export const {
   useFetchRecipeIngredientsQuery,
   useRegisterMutation,
   useLoginMutation,
+  useFetchAllUsersQuery,
+  useFetchUsersFavRecipesQuery,
 } = recipeApi;

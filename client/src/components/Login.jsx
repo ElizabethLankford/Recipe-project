@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { useLoginMutation } from "../redux/recipeApi";
-import { setToken } from "../redux/tokenSlice";
 
 function Login() {
-  const [user, setUser] = useState({ username: "", password: "" });
+  const [userLogin, setUserLogin] = useState({ username: "", password: "" });
   const [login] = useLoginMutation();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
-    const { username, password } = user;
+    console.log(userLogin);
+    const { username, password } = userLogin;
     await login({ username, password })
       .unwrap()
-      .then((response) => setToken(response.token))
+      .then((res) => console.log(res))
       .catch((rejected) => console.error(rejected));
   };
   return (
@@ -21,14 +20,18 @@ function Login() {
         <label>
           Username:
           <input
-            onChange={(e) => setUser({ ...user, username: e.target.value })}
+            onChange={(e) =>
+              setUserLogin({ ...userLogin, username: e.target.value })
+            }
           />
         </label>
         <label>
           Password:
           <input
             type="password"
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
+            onChange={(e) =>
+              setUserLogin({ ...userLogin, password: e.target.value })
+            }
           />
         </label>
         <button>Login</button>
