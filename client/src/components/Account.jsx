@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
+import { selectCurrentToken, selectCurrentUser } from "../redux/tokenSlice";
 
 function Account() {
-  const token = useSelector((state) => state.token);
-  const user = useSelector((state) => state.username);
+  const token = useSelector(selectCurrentToken);
+  const user = useSelector(selectCurrentUser);
 
   console.log("Token:", token);
   console.log("User:", user);

@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoginMutation } from "../redux/recipeApi";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../redux/tokenSlice";
 
 function Login() {
   const [userLogin, setUserLogin] = useState({ username: "", password: "" });
-  const [login] = useLoginMutation();
+  const [login, { data, isSuccess }] = useLoginMutation();
+  const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(userLogin);
@@ -13,6 +16,14 @@ function Login() {
       .then((res) => console.log(res))
       .catch((rejected) => console.error(rejected));
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log(data);
+      dispatch(setCredentials(data));
+    }
+  }, [isSuccess]);
+
   return (
     <div>
       <form onSubmit={handleSubmit}>

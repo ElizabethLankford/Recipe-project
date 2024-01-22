@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import recipeApi from "./recipeApi";
 
 const initialState = {
-  username: {},
+  user:
+    sessionStorage.getItem("user") === null
+      ? {}
+      : JSON.parse(sessionStorage.getItem("user")),
   token:
     sessionStorage.getItem("token") === null
       ? ""
@@ -13,15 +15,21 @@ const tokenSlice = createSlice({
   name: "token",
   initialState,
   reducers: {
-    setUsername: (state, { payload }) => {
-      state.username = payload;
+    setCredentials: (state, action) => {
+      const { user, token } = action.payload;
+      state.user = user;
+      state.token = token;
+      sessionStorage.setItem("user", JSON.stringify(state.user));
     },
-    setToken: (state, { payload }) => {
+    setToken: (state, payload) => {
       state.token = payload;
       sessionStorage.setItem("token", JSON.stringify(state.token));
     },
   },
-  extraReducers: (builder) => {
+});
+
+/**
+ * extraReducers: (builder) => {
     builder.addMatcher(
       recipeApi.endpoints.register.matchFulfilled,
       (state, { payload }) => {
@@ -37,7 +45,10 @@ const tokenSlice = createSlice({
       }
     );
   },
-});
+ */
 
 export default tokenSlice.reducer;
-export const { setToken, setUsername } = tokenSlice.actions;
+export const { setToken, setCredentials } = tokenSlice.actions;
+
+export const selectCurrentUser = (state) => state.token.user;
+export const selectCurrentToken = (state) => state.token.token;

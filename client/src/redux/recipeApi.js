@@ -35,10 +35,10 @@ const recipeApi = createApi({
       }),
     }),
     login: builder.mutation({
-      query: ({ username, password }) => ({
+      query: (data) => ({
         url: "users/login",
         method: "POST",
-        body: { username, password },
+        body: { ...data },
       }),
     }),
     fetchAllUsers: builder.query({
