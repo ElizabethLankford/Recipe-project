@@ -27,7 +27,7 @@ const getRecipeIngredients = async (recipeId) => {
   try {
     const { rows } = await client.query(`
     SELECT
-          i.id AS ingredientId
+          i.id AS ingredientId,
           i.name AS ingredientName,
           q.ingredient_quantity AS ingredientQuantity,
           m.name AS measurementName
