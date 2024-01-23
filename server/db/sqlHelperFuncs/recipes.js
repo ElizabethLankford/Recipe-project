@@ -49,8 +49,8 @@ const createRecipe = async (body) => {
     const {
       rows: [recipe],
     } = await client.query(
-      `INSERT INTO recipes(name, description, instructions, category)
-    VALUES($1, $2, $3, $4)
+      `INSERT INTO recipes(name, description, image, instructions, category)
+    VALUES($1, $2, $3, $4, $5)
     RETURNING *;`,
       [body.name, body.description, body.instructions, body.category]
     );

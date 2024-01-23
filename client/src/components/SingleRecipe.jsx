@@ -1,14 +1,16 @@
 import { useFetchRecipeIngredientsQuery } from "../redux/recipeApi";
 import { useParams } from "react-router-dom";
-//import { useSelector } from "react-redux";
-//import { selectCurrentToken } from "../redux/tokenSlice";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../redux/tokenSlice";
 
 function SingleRecipe() {
   const { recipeId } = useParams();
-  //const token = useSelector(selectCurrentToken);
+  const user = useSelector(selectCurrentUser);
 
   const { data, error, isLoading } = useFetchRecipeIngredientsQuery(recipeId);
-  console.log(data);
+
+  console.log("ingredients", data);
+  console.log("user", user);
   if (isLoading) {
     return <div>Is Loading...</div>;
   }

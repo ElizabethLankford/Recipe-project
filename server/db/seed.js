@@ -27,6 +27,7 @@ const createTables = async () => {
             id SERIAL PRIMARY KEY,
             name VARCHAR(100) NOT NULL,
             description VARCHAR(255),
+            image TEXT,
             instructions TEXT,
             category VARCHAR(100)
         );
@@ -61,8 +62,8 @@ const createInitialRecipes = async () => {
     const recipePromise = recipes.map((recipe) => {
       return client.query(
         `
-        INSERT INTO recipes(name,description,instructions,category)
-        VALUES($1, $2, $3, $4)
+        INSERT INTO recipes(name,description,image,instructions,category)
+        VALUES($1, $2, $3, $4, $5)
         RETURNING *;
         `,
         Object.values(recipe)

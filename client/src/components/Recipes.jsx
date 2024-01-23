@@ -16,11 +16,16 @@ function Recipes() {
       {data.map((recipe) => {
         return (
           <div key={recipe.id} className="recipe-card">
-            <h3>Name: {recipe.name}</h3>
-            <p>Description: {recipe.description}</p>
-            <p>Instructions: {recipe.instructions}</p>
-            <p>Category: {recipe.category}</p>
-            <Link to={`/recipes/${recipe.id}`}>Recipe Details</Link>
+            <div>
+              <img className="recipe-img" src={recipe.image} />
+            </div>
+            <div>
+              <h3>Name: {recipe.name}</h3>
+              <p>Description: {recipe.description}</p>
+              <p>Instructions: {recipe.instructions}</p>
+              <p>Category: {recipe.category}</p>
+              <Link to={`/recipes/${recipe.id}`}>Recipe Details</Link>
+            </div>
           </div>
         );
       })}

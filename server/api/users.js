@@ -11,6 +11,7 @@ const {
   getUserByUsername,
   deleteUser,
   getUserFavRecipes,
+  addRecipeToUsersFav,
 } = require("../db/sqlHelperFuncs/users");
 
 //GET = /api/users = get all users
@@ -50,7 +51,8 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+//Get users favorite recipes
+router.get("/:id/favorites", async (req, res, next) => {
   try {
     const usersFav = await getUserFavRecipes(req.params.id);
     res.send(usersFav);
@@ -59,6 +61,18 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+//POST add a recipe to users favorite list(ERROR with login)
+
+router.post("/:id/favorites", async (req, res, next) => {
+  try {
+    const newFav = await addRecipeToUsersFav(req.params.id, req.body.recipeId);
+    res.send(newFav);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//DELETE remove a recipe from users favorite
 router.delete("/:id", async (req, res, next) => {
   try {
     const user = await deleteUser(req.params.id);
@@ -68,6 +82,7 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
+//POST log user in
 router.post("/login", async (req, res, next) => {
   try {
     const user = await getUserByUsername(req.body.username);

@@ -29,6 +29,17 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+//POST - /api/recipes/id = add recipe to user favorites
+
+router.get("/:id", async (req, res, next) => {
+  try {
+    const favRecipe = await addRecipeToUsersFav(req.body, req.params.id);
+    return favRecipe;
+  } catch (error) {
+    next(error);
+  }
+});
+
 //GET - /api/recipes/id/ingredients = get recipe ingredients
 router.get("/:id/ingredients", async (req, res, next) => {
   try {

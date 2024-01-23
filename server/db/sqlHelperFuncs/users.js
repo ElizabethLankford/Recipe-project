@@ -84,10 +84,28 @@ const getUserFavRecipes = async (userId) => {
   }
 };
 
+const addRecipeToUsersFav = async (userId, recipeId) => {
+  try {
+    const {
+      rows: [recipe],
+    } = await client.query(
+      `
+      INSERT INTO user_recipes(user_id,recipe_id)
+      VALUES ($1,$2)
+      RETURNING *;
+    `,
+      [userId, recipeId]
+    );
+    return recipe;
+  } catch (error) {
+    throw error;
+  }
+};
 module.exports = {
   createUser,
   getAllUsers,
   getUserByUsername,
   deleteUser,
   getUserFavRecipes,
+  addRecipeToUsersFav,
 };
