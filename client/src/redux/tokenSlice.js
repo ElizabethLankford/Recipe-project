@@ -21,9 +21,16 @@ const tokenSlice = createSlice({
       state.token = token;
       sessionStorage.setItem("user", JSON.stringify(state.user));
     },
-    setToken: (state, payload) => {
-      state.token = payload;
+    setToken: (state, action) => {
+      const { token } = action.payload;
+      state.token = token;
       sessionStorage.setItem("token", JSON.stringify(state.token));
+    },
+    logOut: (state) => {
+      state.user = null;
+      state.token = null;
+      sessionStorage.setItem("user", null);
+      sessionStorage.setItem("token", null);
     },
   },
 });
@@ -48,7 +55,7 @@ const tokenSlice = createSlice({
  */
 
 export default tokenSlice.reducer;
-export const { setToken, setCredentials } = tokenSlice.actions;
+export const { setToken, setCredentials, logOut } = tokenSlice.actions;
 
 export const selectCurrentUser = (state) => state.token.user;
 export const selectCurrentToken = (state) => state.token.token;

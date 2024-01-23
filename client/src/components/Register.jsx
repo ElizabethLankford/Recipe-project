@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRegisterMutation } from "../redux/recipeApi";
-import { setToken } from "../redux/tokenSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setCredentials } from "../redux/tokenSlice";
 
 function Register() {
   const [user, setUser] = useState({
@@ -11,7 +13,10 @@ function Register() {
     password: "",
     confirmPassword: "",
   });
-  const [register] = useRegisterMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [register, { data, isSuccess }] = useRegisterMutation();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(user);
@@ -19,14 +24,24 @@ function Register() {
       user;
     if (password === confirmPassword) {
       console.log("passwords Match!");
-      await register({ username, password, firstname, lastname, email })
-        .unwrap()
-        .then((fulfilled) => setToken(fulfilled.token))
-        .catch((rejected) => console.error(rejected));
+      await register({
+        username,
+        password,
+        firstname,
+        lastname,
+        email,
+      }).unwrap();
     } else if (password !== confirmPassword) {
       console.log("Error: passwords do not match!");
     }
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setCredentials(data));
+      navigate("/account");
+    }
+  }, [isSuccess]);
 
   return (
     <div>
