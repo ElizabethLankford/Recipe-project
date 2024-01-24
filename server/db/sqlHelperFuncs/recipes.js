@@ -52,7 +52,13 @@ const createRecipe = async (body) => {
       `INSERT INTO recipes(name, description, image, instructions, category)
     VALUES($1, $2, $3, $4, $5)
     RETURNING *;`,
-      [body.name, body.description, body.instructions, body.category]
+      [
+        body.name,
+        body.description,
+        body.image,
+        body.instructions,
+        body.category,
+      ]
     );
     return recipe;
   } catch (error) {

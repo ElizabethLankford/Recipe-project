@@ -4,6 +4,7 @@ import Recipes from "./components/Recipes";
 import SingleRecipe from "./components/SingleRecipe";
 import Account from "./components/Account";
 import Favorites from "./components/Favorites";
+import AddRecipe from "./components/AddRecipe";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Footer from "./components/Footer";
@@ -20,6 +21,7 @@ function App() {
         <Route path="/:userId/favorites" element={<Favorites />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/addrecipe" element={<AddRecipe />} />
       </Routes>
       <Footer />
     </>

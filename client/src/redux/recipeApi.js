@@ -56,6 +56,13 @@ const recipeApi = createApi({
         body: { recipeId },
       }),
     }),
+    addNewRecipe: builder.mutation({
+      query: (data) => ({
+        url: "recipes",
+        method: "POST",
+        body: { ...data },
+      }),
+    }),
   }),
 });
 
@@ -70,4 +77,5 @@ export const {
   useFetchAllUsersQuery,
   useFetchUsersFavRecipesQuery,
   useAddRecipeToFavsMutation,
+  useAddNewRecipeMutation,
 } = recipeApi;
