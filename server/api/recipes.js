@@ -8,7 +8,7 @@ const {
   updateRecipe,
   deleteRecipe,
 } = require("../db/sqlHelperFuncs/recipes");
-
+const { addRecipeToUsersFav } = require("../db/sqlHelperFuncs/users");
 //GET - /api/recipes - get all recipes
 router.get("/", async (req, res, next) => {
   try {
@@ -30,15 +30,6 @@ router.get("/:id", async (req, res, next) => {
 });
 
 //POST - /api/recipes/id = add recipe to user favorites
-
-router.get("/:id", async (req, res, next) => {
-  try {
-    const favRecipe = await addRecipeToUsersFav(req.body, req.params.id);
-    return favRecipe;
-  } catch (error) {
-    next(error);
-  }
-});
 
 //GET - /api/recipes/id/ingredients = get recipe ingredients
 router.get("/:id/ingredients", async (req, res, next) => {
@@ -73,7 +64,15 @@ router.post("/", async (req, res, next) => {
     next(error);
   }
 });
-
+//POST add a recipe to users favorite list(ERROR with login)
+router.post("/:id", async (req, res, next) => {
+  try {
+    const newFav = await addRecipeToUsersFav(req.body);
+    res.send(newFav);
+  } catch (error) {
+    next(error);
+  }
+});
 //PATCH - /api/recipes/id - update existing recipe
 router.patch("/:id", async (req, res, next) => {
   try {

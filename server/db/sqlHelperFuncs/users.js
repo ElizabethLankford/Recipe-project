@@ -84,7 +84,7 @@ const getUserFavRecipes = async (userId) => {
   }
 };
 
-const addRecipeToUsersFav = async (userId, recipeId) => {
+const addRecipeToUsersFav = async (body) => {
   try {
     const {
       rows: [recipe],
@@ -94,7 +94,7 @@ const addRecipeToUsersFav = async (userId, recipeId) => {
       VALUES ($1,$2)
       RETURNING *;
     `,
-      [userId, recipeId]
+      [body.userId, body.recipeId]
     );
     return recipe;
   } catch (error) {

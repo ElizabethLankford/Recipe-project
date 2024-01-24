@@ -50,10 +50,10 @@ const recipeApi = createApi({
       providesTags: ["User"],
     }),
     addRecipeToFavs: builder.mutation({
-      query: (userId, { recipeId }) => ({
-        url: `users/${userId}`,
+      query: ({ userId, recipeId }) => ({
+        url: `recipes/${recipeId}`,
         method: "POST",
-        body: { recipeId },
+        body: { userId, recipeId },
       }),
     }),
     addNewRecipe: builder.mutation({

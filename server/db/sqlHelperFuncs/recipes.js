@@ -4,7 +4,8 @@ const util = require("../utils");
 const getAllRecipes = async () => {
   try {
     const { rows } = await client.query(`
-    SELECT * FROM recipes;
+    SELECT * FROM recipes
+    ORDER BY name ASC;
     `);
     return rows;
   } catch (error) {

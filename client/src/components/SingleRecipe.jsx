@@ -1,12 +1,26 @@
-import { useFetchSingleRecipeQuery } from "../redux/recipeApi";
-import { useParams } from "react-router-dom";
+import {
+  useFetchSingleRecipeQuery,
+  useAddRecipeToFavsMutation,
+} from "../redux/recipeApi";
+import { selectCurrentUser, selectCurrentToken } from "../redux/tokenSlice";
+import { useParams, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Ingredients from "./Ingredients";
 
 function SingleRecipe() {
   const { recipeId } = useParams();
+  const user = useSelector(selectCurrentUser);
+  const token = useSelector(selectCurrentToken);
 
   const { data, error, isLoading } = useFetchSingleRecipeQuery(recipeId);
-  console.log("recipe:", data);
+  const [addToFavs] = useAddRecipeToFavsMutation();
+
+  const handleAdd = async () => {
+    await addToFavs({ userId: user.id, recipeId: recipeId })
+      .unwrap()
+      .then((res) => console.log(res))
+      .catch((rejected) => console.error(rejected));
+  };
 
   if (isLoading) {
     return <div>Is Loading...</div>;
@@ -15,16 +29,23 @@ function SingleRecipe() {
     return <div>Error: {error.message}</div>;
   }
   return (
-    <div>
-      <h2>{data.name}</h2>
-      <div key={data.id}>
-        <div className="single-rec-img">
-          <img height={200} src={data.image} />
-        </div>
+    <div className="container">
+      <h2 className="single-rec-title">{data.name}</h2>
+      <div className="single-rec-container" key={data.id}>
+        <img className="single-rec-img" height={200} src={data.image} />
         <div className="single-rec-info">
-          <p>{data.description}</p>
-          <p>{data.category}</p>
-          <p>{data.instructions}</p>
+          <p>Description: {data.description}</p>
+          <p>Category: {data.category}</p>
+          <p>Instructions: {data.instructions}</p>
+          {token ? (
+            <button className="link" onClick={handleAdd}>
+              Add to Favorites
+            </button>
+          ) : (
+            <button className="link">
+              <Link to="/login">Login to add to Favorites</Link>
+            </button>
+          )}
         </div>
       </div>
       <Ingredients />

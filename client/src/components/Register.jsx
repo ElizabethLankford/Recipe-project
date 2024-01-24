@@ -34,6 +34,14 @@ function Register() {
     } else if (password !== confirmPassword) {
       console.log("Error: passwords do not match!");
     }
+    setUser({
+      firstname: "",
+      lastname: "",
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
   };
 
   useEffect(() => {
@@ -50,42 +58,54 @@ function Register() {
         <label>
           Firstname:
           <input
+            value={user.firstname}
             onChange={(e) => setUser({ ...user, firstname: e.target.value })}
+            required
           />
         </label>
         <label>
           Lastname:
           <input
+            value={user.lastname}
             onChange={(e) => setUser({ ...user, lastname: e.target.value })}
+            required
           />
         </label>
         <label>
           Username:
           <input
+            value={user.username}
             onChange={(e) => setUser({ ...user, username: e.target.value })}
+            required
           />
         </label>
         <label>
           Email:
           <input
+            value={user.email}
             type="email"
             onChange={(e) => setUser({ ...user, email: e.target.value })}
+            required
           />
         </label>
         <label>
           Password:
           <input
+            value={user.password}
             type="password"
             onChange={(e) => setUser({ ...user, password: e.target.value })}
+            required
           />
         </label>
         <label>
           Confirm password:
           <input
+            value={user.confirmPassword}
             type="password"
             onChange={(e) =>
               setUser({ ...user, confirmPassword: e.target.value })
             }
+            required
           />
         </label>
         <button>Submit</button>

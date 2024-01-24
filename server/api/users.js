@@ -61,16 +61,8 @@ router.get("/:id/favorites", async (req, res, next) => {
   }
 });
 
+// moved POST add a recipe to users fav into recipe api routes file
 //POST add a recipe to users favorite list(ERROR with login)
-
-router.post("/:id/favorites", async (req, res, next) => {
-  try {
-    const newFav = await addRecipeToUsersFav(req.params.id, req.body.recipeId);
-    res.send(newFav);
-  } catch (error) {
-    next(error);
-  }
-});
 
 //DELETE remove a recipe from users favorite
 router.delete("/:id", async (req, res, next) => {

@@ -1,5 +1,6 @@
 import { useFetchRecipeIngredientsQuery } from "../redux/recipeApi";
 import { useParams } from "react-router-dom";
+import icon from "../assets/ingredients.png";
 
 function Ingredients() {
   const { recipeId } = useParams();
@@ -16,19 +17,23 @@ function Ingredients() {
   }
   console.log(data);
   return (
-    <div>
-      <h3>Ingredients</h3>
-      <div>
+    <div className="ing-contianer">
+      <div className="ing-title-container">
+        <h3>Ingredients</h3>
+        <img height={30} src={icon} />
+      </div>
+
+      <ul>
         {data.map((ing) => {
           return (
-            <p key={ing.ingredientid}>
+            <li key={ing.ingredientid}>
               {ing.ingredientquantity}
               {ing.measurementname == "NA" ? " " : ing.measurementname}{" "}
               {ing.ingredientname}
-            </p>
+            </li>
           );
         })}
-      </div>
+      </ul>
     </div>
   );
 }

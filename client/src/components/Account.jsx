@@ -12,11 +12,20 @@ function Account() {
     <div className="container">
       <h2>My Account</h2>
       <p>
-        Name: {user.firstname} {user.lastname}
+        <b>Name: </b>
+        {user.firstname} {user.lastname}
       </p>
-      <p>Username: {user.username}</p>
-      <p>Email: {user.email}</p>
-      <Link to="/addrecipe">Add a Recipe</Link>
+      <p>
+        <b>Username: </b>
+        {user.username}
+      </p>
+      <p>
+        <b>Email: </b>
+        {user.email}
+      </p>
+      <button className="add-rec-btn">
+        <Link to="/addrecipe">Add a Recipe</Link>
+      </button>
     </div>
   );
 }
