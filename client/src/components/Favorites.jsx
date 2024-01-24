@@ -5,9 +5,9 @@ import { useFetchUsersFavRecipesQuery } from "../redux/recipeApi";
 function Favorites() {
   const token = useSelector(selectCurrentToken);
   const user = useSelector(selectCurrentUser);
-  console.log("Token:", token);
-  console.log("User:", user);
-  const { data, error, isLoading } = useFetchUsersFavRecipesQuery(user.id);
+
+  const { data, isLoading, error } = useFetchUsersFavRecipesQuery(user.id);
+  console.log("data", data);
   if (!token) {
     return;
   }
@@ -15,14 +15,23 @@ function Favorites() {
     return <h1>Loading...</h1>;
   }
   if (error) {
-    return <h1>Error : {error}</h1>;
+    return <h1>Error {error.message} </h1>;
   }
-  console.log(data);
+
   return (
-    <div>
+    <div className="container">
       Favorite Recipes
       <div>
         <h3>Favorite Recipes :</h3>
+        {data.map((recipe) => {
+          return (
+            <div key={recipe.recipeid}>
+              <h3>{recipe.recipename}</h3>
+              <p>{recipe.recipecategory}</p>
+              <p>{recipe.recipedes}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

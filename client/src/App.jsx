@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<Recipes />} />
         <Route path="/recipes/:recipeId" element={<SingleRecipe />} />
         <Route path="/account" element={<Account />} />
-        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/:userId/favorites" element={<Favorites />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>

@@ -1,37 +1,33 @@
-import { useFetchRecipeIngredientsQuery } from "../redux/recipeApi";
+import { useFetchSingleRecipeQuery } from "../redux/recipeApi";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectCurrentUser } from "../redux/tokenSlice";
+import Ingredients from "./Ingredients";
 
 function SingleRecipe() {
   const { recipeId } = useParams();
-  const user = useSelector(selectCurrentUser);
 
-  const { data, error, isLoading } = useFetchRecipeIngredientsQuery(recipeId);
+  const { data, error, isLoading } = useFetchSingleRecipeQuery(recipeId);
+  console.log("recipe:", data);
 
-  console.log("ingredients", data);
-  console.log("user", user);
   if (isLoading) {
     return <div>Is Loading...</div>;
   }
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  console.log(data);
   return (
     <div>
-      Ingredients
-      <div>
-        {data.map((ing) => {
-          return (
-            <p key={ing.id}>
-              {ing.ingredientquantity}
-              {ing.measurementname == "NA" ? " " : ing.measurementname}{" "}
-              {ing.ingredientname}
-            </p>
-          );
-        })}
+      <h2>{data.name}</h2>
+      <div key={data.id}>
+        <div className="single-rec-img">
+          <img height={200} src={data.image} />
+        </div>
+        <div className="single-rec-info">
+          <p>{data.description}</p>
+          <p>{data.category}</p>
+          <p>{data.instructions}</p>
+        </div>
       </div>
+      <Ingredients />
     </div>
   );
 }

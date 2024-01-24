@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectCurrentToken, logOut } from "../redux/tokenSlice";
+import {
+  selectCurrentToken,
+  selectCurrentUser,
+  logOut,
+} from "../redux/tokenSlice";
 import logo from "../assets/recipeicon.png";
 
 function Navbar() {
   const token = useSelector(selectCurrentToken);
+  const user = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,7 +29,7 @@ function Navbar() {
         <nav>
           <Link to="/">Recipes</Link>
           <Link to="/account">Account</Link>
-          <Link to="/favorites">Favorites</Link>
+          <Link to={`/${user.id}/favorites`}>Favorites</Link>
           <button className="logout" onClick={() => handleLogout()}>
             Logout
           </button>

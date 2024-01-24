@@ -46,7 +46,7 @@ const recipeApi = createApi({
       providesTags: ["User"],
     }),
     fetchUsersFavRecipes: builder.query({
-      query: (userId) => `users/${userId}`,
+      query: (userId) => `users/${userId}/favorites`,
       providesTags: ["User"],
     }),
     addRecipeToFavs: builder.mutation({
