@@ -4,11 +4,14 @@ const {
   getAllRecipes,
   getRecipeById,
   getRecipeIngredients,
+  addIngredientsToRecipe,
+  addIngrendients,
   createRecipe,
   updateRecipe,
   deleteRecipe,
 } = require("../db/sqlHelperFuncs/recipes");
 const { addRecipeToUsersFav } = require("../db/sqlHelperFuncs/users");
+
 //GET - /api/recipes - get all recipes
 router.get("/", async (req, res, next) => {
   try {

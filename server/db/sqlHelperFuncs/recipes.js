@@ -45,6 +45,42 @@ const getRecipeIngredients = async (recipeId) => {
     throw error;
   }
 };
+const addIngrendients = async (ingredients) => {
+  try {
+    const ingredientsPromise = ingredients.map((ing) => {
+      return client.query(
+        `
+        INSERT INTO ingredients (name)
+        VALUES ($1)
+        RETURNING *;
+        `,
+        Object.values(ing)
+      );
+    });
+    await Promise.all(ingredientsPromise);
+    console.log("added new ingredients to table!");
+  } catch (error) {
+    throw error;
+  }
+};
+const addIngredientsToRecipe = async (recipeId, ingredientsInfo) => {
+  try {
+    const linkTablesPromise = ingredientsInfo.map((ing) => {
+      return client.query(
+        `
+      INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+     VALUES (${recipeId}, $2, $3, $4)
+     RETURNING *
+      `,
+        Object.values(ing)
+      );
+    });
+    await Promise.all(linkTablesPromise);
+    console.log("Linked recipe to ingredients!");
+  } catch (error) {
+    throw error;
+  }
+};
 const createRecipe = async (body) => {
   try {
     const {
@@ -108,6 +144,8 @@ const deleteRecipe = async (recipeId) => {
 module.exports = {
   getAllRecipes,
   getRecipeById,
+  addIngrendients,
+  addIngredientsToRecipe,
   getRecipeIngredients,
   createRecipe,
   updateRecipe,

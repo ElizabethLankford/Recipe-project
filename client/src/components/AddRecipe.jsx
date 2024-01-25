@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAddNewRecipeMutation } from "../redux/recipeApi";
-
+import AddIngredients from "./AddIngredients";
 function AddRecipe() {
   const [recipeInfo, setRecipeInfo] = useState({
     name: "",

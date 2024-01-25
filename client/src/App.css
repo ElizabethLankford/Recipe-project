@@ -23,16 +23,15 @@ html, body{
     padding: 0;
     height: 100%;
 }
-form {
+
+.form-container{
+    max-width: 400px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 70vh;
     gap: 1em;
     margin: auto;
-}
-.form-container{
-    max-width: 400px; 
 }
 .form-container> form > h2{
     text-align: center;
@@ -148,6 +147,11 @@ button{
 }
 
 /*ADD RECIPE STYLES*/
+
+.ing-form{
+max-width: 300px;
+}
+
 
 /*INGREDIENT STYLES*/
 .ing-contianer{
