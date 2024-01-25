@@ -3,14 +3,18 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function Recipes() {
-  const [search, setSearch] = useState("");
+  const [searchString, setSearchString] = useState("");
   const { data = {}, error, isLoading } = useFetchRecipesQuery();
-
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    console.log(search);
-    setSearch("");
+  const getFilteredRecipes = (query, recipes) => {
+    if (!query) {
+      return recipes;
+    }
+    return recipes.filter((recipe) =>
+      recipe.name.toLowerCase().includes(query)
+    );
   };
+
+  const filteredRecipes = getFilteredRecipes(searchString, data);
 
   if (isLoading) {
     return <div>is loading...</div>;
@@ -24,12 +28,14 @@ function Recipes() {
       <div className="search-bar-container">
         <label>
           Search recipe:
-          <input value={search} onChange={(e) => setSearch(e.target.value)} />
+          <input
+            value={searchString}
+            onChange={(e) => setSearchString(e.target.value)}
+          />
         </label>
-        <button onClick={handleSearch}>search</button>
       </div>
       <div className="recipe-card-container">
-        {data.map((recipe) => {
+        {filteredRecipes.map((recipe) => {
           return (
             <div key={recipe.id} className="recipe-card">
               <img className="recipe-img" src={recipe.image} />
