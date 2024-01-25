@@ -28,8 +28,8 @@ function AddRecipe() {
   }, [isSuccess]);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="container">
+      <form className="form-container" onSubmit={handleSubmit}>
         <h2>Add a New Recipe</h2>
         <label>
           Recipe Name:
@@ -65,13 +65,13 @@ function AddRecipe() {
         </label>
         <label>
           Instructions:
-          <input
+          <textarea
             onChange={(e) =>
               setRecipeInfo({ ...recipeInfo, instructions: e.target.value })
             }
           />
         </label>
-        <button>Add Recipe</button>
+        <button className="form-btn">Add Recipe</button>
       </form>
     </div>
   );

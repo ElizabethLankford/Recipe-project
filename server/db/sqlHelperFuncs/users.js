@@ -72,6 +72,7 @@ const getUserFavRecipes = async (userId) => {
             r.id AS recipeID,
             r.name AS recipeName,
             r.description AS recipeDes,
+            r.image AS recipeImg,
             r.instructions AS recipeSteps,
             r.category AS recipeCategory
     FROM user_recipes AS u

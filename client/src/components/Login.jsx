@@ -30,7 +30,7 @@ function Login() {
   }, [isSuccess]);
 
   return (
-    <div>
+    <div className="container form-container">
       <form onSubmit={handleSubmit}>
         <h2>Login</h2>
         <label>
@@ -50,7 +50,7 @@ function Login() {
             }
           />
         </label>
-        <button>Login</button>
+        <button className="form-btn">Login</button>
       </form>
     </div>
   );

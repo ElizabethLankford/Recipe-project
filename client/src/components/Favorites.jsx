@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { selectCurrentToken, selectCurrentUser } from "../redux/tokenSlice";
 import { useFetchUsersFavRecipesQuery } from "../redux/recipeApi";
 
@@ -20,15 +21,18 @@ function Favorites() {
 
   return (
     <div className="container">
-      Favorite Recipes
       <div>
         <h3>Favorite Recipes :</h3>
         {data.map((recipe) => {
           return (
-            <div key={recipe.recipeid}>
-              <h3>{recipe.recipename}</h3>
-              <p>{recipe.recipecategory}</p>
-              <p>{recipe.recipedes}</p>
+            <div className="recipe-card" key={recipe.recipeid}>
+              <img className="recipe-img" src={recipe.recipeimg} />
+              <div className="recipe-info">
+                <h3>{recipe.recipename}</h3>
+                <p>{recipe.recipecategory}</p>
+                <p>{recipe.recipedes}</p>
+                <Link to={`/recipes/${recipe.recipeid}`}>Recipe Details</Link>
+              </div>
             </div>
           );
         })}

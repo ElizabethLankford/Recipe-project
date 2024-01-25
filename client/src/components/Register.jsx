@@ -52,7 +52,7 @@ function Register() {
   }, [isSuccess]);
 
   return (
-    <div>
+    <div className="container form-container">
       <form onSubmit={handleSubmit}>
         <h2>Register </h2>
         <label>
@@ -108,7 +108,7 @@ function Register() {
             required
           />
         </label>
-        <button>Submit</button>
+        <button className="form-btn">Submit</button>
       </form>
     </div>
   );
