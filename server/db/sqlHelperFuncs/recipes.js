@@ -24,6 +24,18 @@ const getRecipeById = async (recipeId) => {
     throw error;
   }
 };
+const getIngredientByName = async (name) => {
+  try {
+    const {
+      rows: [ing],
+    } = await client.query(`
+    SELECT * FROM ingredients WHERE "name" = ${name};
+    `);
+    return ing;
+  } catch (error) {
+    throw error;
+  }
+};
 const getRecipeIngredients = async (recipeId) => {
   try {
     const { rows } = await client.query(`
@@ -45,38 +57,45 @@ const getRecipeIngredients = async (recipeId) => {
     throw error;
   }
 };
-const addIngrendients = async (ingredients) => {
+const addIngrendients = async (body) => {
   try {
-    const ingredientsPromise = ingredients.map((ing) => {
-      return client.query(
-        `
-        INSERT INTO ingredients (name)
-        VALUES ($1)
-        RETURNING *;
-        `,
-        Object.values(ing)
-      );
-    });
-    await Promise.all(ingredientsPromise);
-    console.log("added new ingredients to table!");
+    const { rows } = await client.query(
+      `
+    INSERT INTO ingredients (name)
+    VALUES ($1)
+    RETURNING *;
+    `,
+      [body.nameParam]
+    );
+    console.log("added new ingredient to table!");
+    return rows;
   } catch (error) {
     throw error;
   }
 };
-const addIngredientsToRecipe = async (recipeId, ingredientsInfo) => {
+const addIngredientsToRecipe = async (body) => {
   try {
-    const linkTablesPromise = ingredientsInfo.map((ing) => {
-      return client.query(
-        `
+    const { rows } = await client.query(
+      `
       INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-     VALUES (${recipeId}, $2, $3, $4)
-     RETURNING *
+     VALUES ($1, $2, $3, $4)
+     RETURNING *;
       `,
-        Object.values(ing)
-      );
-    });
-    await Promise.all(linkTablesPromise);
+      [body.recipeid, body.ingredientid, body.measureid, body.amount]
+    );
+    // const linkTablesPromise = ingredientsInfo.map((ing) => {
+    //   return client.query(
+    //     `
+    //   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+    //  VALUES (${recipeId}, $2, $3, $4)
+    //  RETURNING *
+    //   `,
+    //     Object.values(ing)
+    //   );
+    // });
+    // await Promise.all(linkTablesPromise);
     console.log("Linked recipe to ingredients!");
+    return rows;
   } catch (error) {
     throw error;
   }
@@ -145,6 +164,7 @@ module.exports = {
   getAllRecipes,
   getRecipeById,
   addIngrendients,
+  getIngredientByName,
   addIngredientsToRecipe,
   getRecipeIngredients,
   createRecipe,

@@ -1,34 +1,60 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAddIngredientsMutation } from "../redux/recipeApi";
+
+import { useParams } from "react-router-dom";
 
 function AddIngredients() {
-  const [ingredientInfo, setIngredientInfo] = useState({
+  const { recipeId } = useParams();
+  const [ingredientID, setIngredientID] = useState({});
+  const [ingredientName, setIngredientName] = useState({
     name: "",
-    quantity: 0,
-    measurement: 10,
   });
+  const [ingredientInfo, setIngredientInfo] = useState({
+    recipeid: recipeId,
+    ingredientid: ingredientID.id,
+    measureid: 10,
+    amount: 0,
+  });
+  const [newIngredient, { data: ingData, isSuccess: ingSuccess }] =
+    useAddIngredientsMutation();
+
+  const handleAddIngredient = async (e) => {
+    e.preventDefault();
+    await newIngredient(ingredientName.name, recipeId)
+      .unwrap()
+      .then((res) => setIngredientID(res))
+      .catch((rejected) => console.error(rejected));
+  };
+
+  useEffect(() => {
+    if (ingSuccess) {
+      console.log("Success!", ingData);
+      console.log(ingredientInfo);
+    }
+  }, [ingSuccess]);
 
   return (
     <div>
       Add Ingredients componenet
-      <form className="ing-form">
+      <form className="ing-form" onSubmit={handleAddIngredient}>
         <label>
           Quantity:
           <input
-            value={ingredientInfo.quantity}
+            value={ingredientInfo.amount}
             type="number"
             onChange={(e) =>
-              setIngredientInfo({ ...ingredientInfo, quantity: e.target.value })
+              setIngredientInfo({ ...ingredientInfo, amount: e.target.value })
             }
           />
         </label>
         <label>
           Measurement Unit:
           <select
-            value={ingredientInfo.measurement}
+            value={ingredientInfo.measureid}
             onChange={(e) =>
               setIngredientInfo({
                 ...ingredientInfo,
-                measurement: e.target.value,
+                measureid: e.target.value,
               })
             }
           >
@@ -47,10 +73,8 @@ function AddIngredients() {
         <label>
           Ingredient:
           <input
-            value={ingredientInfo.name}
-            onChange={(e) =>
-              setIngredientInfo({ ...ingredientInfo, name: e.target.value })
-            }
+            value={ingredientName.name}
+            onChange={(e) => setIngredientName({ name: e.target.value })}
           />
         </label>
         <button>Add Ingredient</button>

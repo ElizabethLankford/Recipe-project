@@ -5,6 +5,7 @@ import SingleRecipe from "./components/SingleRecipe";
 import Account from "./components/Account";
 import Favorites from "./components/Favorites";
 import AddRecipe from "./components/AddRecipe";
+import AddIngredients from "./components/AddIngredients";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Footer from "./components/Footer";
@@ -22,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/addrecipe" element={<AddRecipe />} />
+        <Route path="/addrecipe/:recipeId" element={<AddIngredients />} />
       </Routes>
       <Footer />
     </div>

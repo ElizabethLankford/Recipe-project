@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAddNewRecipeMutation } from "../redux/recipeApi";
-import AddIngredients from "./AddIngredients";
+import { useNavigate } from "react-router-dom";
+
 function AddRecipe() {
   const [recipeInfo, setRecipeInfo] = useState({
     name: "",
@@ -9,6 +10,8 @@ function AddRecipe() {
     instructions: "",
     category: "",
   });
+
+  const navigate = useNavigate();
 
   const [newRecipe, { data, isSuccess }] = useAddNewRecipeMutation();
 
@@ -24,6 +27,7 @@ function AddRecipe() {
   useEffect(() => {
     if (isSuccess) {
       console.log("Success!", data);
+      navigate(`/addrecipe/${data.id}`);
     }
   }, [isSuccess]);
 

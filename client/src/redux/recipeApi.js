@@ -62,6 +62,22 @@ const recipeApi = createApi({
         method: "POST",
         body: { ...data },
       }),
+      invalidatesTags: ["Recipe"],
+    }),
+    addIngredients: builder.mutation({
+      query: (nameParam, recipeId) => ({
+        url: `recipes/addrecipe/${recipeId}`,
+        method: "POST",
+        body: { nameParam },
+      }),
+    }),
+    addIngToRecipe: builder.mutation({
+      query: ({ recipeid, ingredientid, measureid, amount }) => ({
+        query: `recipes/addrecipe`,
+        method: "POST",
+        body: { recipeid, ingredientid, measureid, amount },
+      }),
+      invalidatesTags: ["Recipe"],
     }),
   }),
 });
@@ -74,7 +90,10 @@ export const {
   useFetchRecipeIngredientsQuery,
   useRegisterMutation,
   useLoginMutation,
+  useGetIngredientIDMutation,
   useFetchAllUsersQuery,
+  useAddIngredientsMutation,
+  useAddIngToRecipeMutation,
   useFetchUsersFavRecipesQuery,
   useAddRecipeToFavsMutation,
   useAddNewRecipeMutation,
