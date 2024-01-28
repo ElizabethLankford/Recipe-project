@@ -6,7 +6,6 @@ const {
   getRecipeIngredients,
   addIngredientsToRecipe,
   addIngrendients,
-  getIngredientByName,
   createRecipe,
   updateRecipe,
   deleteRecipe,
@@ -33,8 +32,6 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-//POST - /api/recipes/id = add recipe to user favorites
-
 //GET - /api/recipes/id/ingredients = get recipe ingredients
 router.get("/:id/ingredients", async (req, res, next) => {
   try {
@@ -44,29 +41,21 @@ router.get("/:id/ingredients", async (req, res, next) => {
     next(error);
   }
 });
-
-router.get("/addrecipe", async (req, res, next) => {
-  try {
-    const getIng = await getIngredientByName(req.body);
-    res.send(getIng);
-  } catch (error) {
-    next(error);
-  }
-});
-//POST - /api/recipes/ingredients = add ingredient
-router.post("/addrecipe/:id", async (req, res, next) => {
-  try {
-    const newIng = await addIngrendients(req.body, req.params.id);
-    res.send(newIng);
-  } catch (error) {
-    next(error);
-  }
-});
 //POST - /api/recipes/ingredients/link = link ingredients to recipe
 router.post("/addrecipe", async (req, res, next) => {
   try {
     const addIngtoRecipe = await addIngredientsToRecipe(req.body);
     res.send(addIngtoRecipe);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//POST - /api/recipes/ingredients = add ingredient
+router.post("/addrecipe/:id", async (req, res, next) => {
+  try {
+    const newIng = await addIngrendients(req.body, req.params.id);
+    res.send(JSON.stringify(newIng.id));
   } catch (error) {
     next(error);
   }

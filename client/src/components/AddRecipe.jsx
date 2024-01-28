@@ -17,7 +17,6 @@ function AddRecipe() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(recipeInfo);
     await newRecipe({ ...recipeInfo })
       .unwrap()
       .then((res) => console.log(res))

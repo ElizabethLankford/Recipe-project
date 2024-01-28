@@ -7,15 +7,12 @@ function Ingredients() {
 
   const { data, error, isLoading } = useFetchRecipeIngredientsQuery(recipeId);
 
-  console.log("ingredients", data);
-
   if (isLoading) {
     return <div>Is Loading...</div>;
   }
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-  console.log(data);
   return (
     <div className="ing-contianer">
       <div className="ing-title-container">

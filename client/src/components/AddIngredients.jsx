@@ -1,41 +1,60 @@
 import { useState, useEffect } from "react";
-import { useAddIngredientsMutation } from "../redux/recipeApi";
-
+import {
+  useAddIngredientsMutation,
+  useAddIngToRecipeMutation,
+} from "../redux/recipeApi";
+import Ingredients from "./Ingredients";
 import { useParams } from "react-router-dom";
 
 function AddIngredients() {
   const { recipeId } = useParams();
-  const [ingredientID, setIngredientID] = useState({});
+
   const [ingredientName, setIngredientName] = useState({
     name: "",
   });
+
   const [ingredientInfo, setIngredientInfo] = useState({
     recipeid: recipeId,
-    ingredientid: ingredientID.id,
+    ingredientid: "",
     measureid: 10,
     amount: 0,
   });
-  const [newIngredient, { data: ingData, isSuccess: ingSuccess }] =
-    useAddIngredientsMutation();
+  const [newIngredient] = useAddIngredientsMutation();
+  const [linkIngredient] = useAddIngToRecipeMutation();
 
   const handleAddIngredient = async (e) => {
     e.preventDefault();
-    await newIngredient(ingredientName.name, recipeId)
-      .unwrap()
-      .then((res) => setIngredientID(res))
-      .catch((rejected) => console.error(rejected));
+
+    try {
+      await newIngredient(ingredientName.name, recipeId)
+        .unwrap()
+        .then((res) => {
+          let id = res;
+          setIngredientInfo((prevInfo) => {
+            return { ...prevInfo, ingredientid: id };
+          });
+        })
+        .catch((rejected) => console.error(rejected));
+      console.log(ingredientInfo.ingredientid);
+      if (ingredientInfo.ingredientid) {
+        await linkIngredient({ ...ingredientInfo })
+          .unwrap()
+          .then((res) => console.log(res))
+          .catch((rejected) => console.error(rejected));
+      } else {
+        console.log("ing_id issue");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    if (ingSuccess) {
-      console.log("Success!", ingData);
-      console.log(ingredientInfo);
-    }
-  }, [ingSuccess]);
-
+    console.log(ingredientInfo);
+  }, []);
   return (
     <div>
-      Add Ingredients componenet
+      <Ingredients />
       <form className="ing-form" onSubmit={handleAddIngredient}>
         <label>
           Quantity:

@@ -24,12 +24,12 @@ const getRecipeById = async (recipeId) => {
     throw error;
   }
 };
-const getIngredientByName = async (name) => {
+const getIngredientById = async (id) => {
   try {
     const {
       rows: [ing],
     } = await client.query(`
-    SELECT * FROM ingredients WHERE "name" = ${name};
+    SELECT * FROM ingredients WHERE "id" = ${id};
     `);
     return ing;
   } catch (error) {
@@ -59,23 +59,26 @@ const getRecipeIngredients = async (recipeId) => {
 };
 const addIngrendients = async (body) => {
   try {
-    const { rows } = await client.query(
+    const {
+      rows: [ing],
+    } = await client.query(
       `
     INSERT INTO ingredients (name)
     VALUES ($1)
-    RETURNING *;
+    RETURNING id;
     `,
       [body.nameParam]
     );
-    console.log("added new ingredient to table!");
-    return rows;
+    return ing;
   } catch (error) {
     throw error;
   }
 };
 const addIngredientsToRecipe = async (body) => {
   try {
-    const { rows } = await client.query(
+    const {
+      rows: [item],
+    } = await client.query(
       `
       INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
      VALUES ($1, $2, $3, $4)
@@ -83,19 +86,7 @@ const addIngredientsToRecipe = async (body) => {
       `,
       [body.recipeid, body.ingredientid, body.measureid, body.amount]
     );
-    // const linkTablesPromise = ingredientsInfo.map((ing) => {
-    //   return client.query(
-    //     `
-    //   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-    //  VALUES (${recipeId}, $2, $3, $4)
-    //  RETURNING *
-    //   `,
-    //     Object.values(ing)
-    //   );
-    // });
-    // await Promise.all(linkTablesPromise);
-    console.log("Linked recipe to ingredients!");
-    return rows;
+    return item;
   } catch (error) {
     throw error;
   }
@@ -164,7 +155,7 @@ module.exports = {
   getAllRecipes,
   getRecipeById,
   addIngrendients,
-  getIngredientByName,
+  getIngredientById,
   addIngredientsToRecipe,
   getRecipeIngredients,
   createRecipe,

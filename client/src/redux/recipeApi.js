@@ -12,7 +12,7 @@ const recipeApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Recipe", "User"],
+  tagTypes: ["Recipe", "Ingredient", "User"],
 
   endpoints: (builder) => ({
     fetchRecipes: builder.query({
@@ -25,7 +25,7 @@ const recipeApi = createApi({
     }),
     fetchRecipeIngredients: builder.query({
       query: (recipeId) => `recipes/${recipeId}/ingredients`,
-      providesTags: ["Recipe"],
+      providesTags: ["Ingredient"],
     }),
     register: builder.mutation({
       query: ({ username, password, firstname, lastname, email }) => ({
@@ -64,20 +64,21 @@ const recipeApi = createApi({
       }),
       invalidatesTags: ["Recipe"],
     }),
+    addIngToRecipe: builder.mutation({
+      query: (data) => ({
+        url: `recipes/addrecipe`,
+        method: "POST",
+        body: { ...data },
+      }),
+      invalidatesTags: ["Ingredient", "Recipe"],
+    }),
     addIngredients: builder.mutation({
       query: (nameParam, recipeId) => ({
         url: `recipes/addrecipe/${recipeId}`,
         method: "POST",
         body: { nameParam },
       }),
-    }),
-    addIngToRecipe: builder.mutation({
-      query: ({ recipeid, ingredientid, measureid, amount }) => ({
-        query: `recipes/addrecipe`,
-        method: "POST",
-        body: { recipeid, ingredientid, measureid, amount },
-      }),
-      invalidatesTags: ["Recipe"],
+      invalidatesTags: ["Ingredient", "Recipe"],
     }),
   }),
 });
@@ -90,7 +91,6 @@ export const {
   useFetchRecipeIngredientsQuery,
   useRegisterMutation,
   useLoginMutation,
-  useGetIngredientIDMutation,
   useFetchAllUsersQuery,
   useAddIngredientsMutation,
   useAddIngToRecipeMutation,
