@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { selectCurrentToken, selectCurrentUser } from "../redux/tokenSlice";
-import { Link } from "react-router-dom";
 
 function Account() {
   const token = useSelector(selectCurrentToken);
@@ -24,9 +23,6 @@ function Account() {
           <b>Email: </b>
           {user.email}
         </p>
-        <button className="add-rec-btn">
-          <Link to="/addrecipe">Add a Recipe</Link>
-        </button>
       </div>
     </div>
   );

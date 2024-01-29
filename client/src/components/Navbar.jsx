@@ -30,6 +30,9 @@ function Navbar() {
           <Link to="/">Recipes</Link>
           <Link to="/account">Account</Link>
           <Link to={`/${user.id}/favorites`}>Favorites</Link>
+          <button className="add-rec-btn">
+            <Link to="/addrecipe">Add a Recipe</Link>
+          </button>
           <button className="logout" onClick={() => handleLogout()}>
             Logout
           </button>

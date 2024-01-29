@@ -149,7 +149,7 @@ const createInitialRecipe_Ingredients = async () => {
 
 
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-   VALUES (2,6, 3, 3);
+   VALUES (2,6, 8, 3);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
    VALUES (2,11, 6, 7);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
@@ -170,7 +170,7 @@ const createInitialRecipe_Ingredients = async () => {
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
    VALUES (3,5,8,2);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-   VALUES (3,27,8,3/4);
+   VALUES (3,27,8,.75);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
    VALUES (3,11,6,2);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
@@ -180,7 +180,7 @@ const createInitialRecipe_Ingredients = async () => {
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
    VALUES (3,12,8,1);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-   VALUES (3,29,8,1/5);
+   VALUES (3,29,8,.5);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
    VALUES (3,3,1,2);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
