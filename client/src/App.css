@@ -25,24 +25,14 @@ html, body{
 }
 
 .form-container{
-    max-width: 400px; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 70vh;
-    gap: 1em;
-    margin: auto;
+    max-width: 600px; 
 }
+
 .form-container> form > h2{
     text-align: center;
     text-shadow: 5px 5px 10px var(--pink-color-dk);
 }
-form > label {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    align-self: flex-end;
-}
+
 form > label > input{
     padding: .3em;
     font-family: inherit;
@@ -149,7 +139,11 @@ button{
 /*ADD RECIPE STYLES*/
 
 .ing-form{
-max-width: 300px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 10px;
 }
 
 
@@ -168,8 +162,21 @@ li{
     padding: .3em;
     border-bottom: 1px solid paleturquoise;
 }
+.add-ing-btn{
+    background-color: var(--pink-color-dk);
+    border: none;
+    border-radius: 5px;
+    padding: .4em .6em;
+    font-family: inherit;
+    font-weight: bold;
+    text-transform: uppercase;
+}
 /*FAVORITES STYLES*/
-
+.title-fav{
+    display: flex;
+    align-items: center;
+    width: fit-content;
+}
 /*ACCOUNT STYLES*/
 .account-container{
     display: flex;
@@ -186,6 +193,7 @@ li{
     font-weight: 700;
     font-size: 1em;
     width: 30%;
+    max-width: 150px;
 }
 .add-rec-btn:hover {
     background-color: var(--green-color-dk);
@@ -198,7 +206,13 @@ color: black;
 /*LOGIN STYLES*/
 
 /*REGISTER STYLES*/
-
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 1em;
+}
 /*NAVBAR STYLES*/
 header {
     background-color:var(--orange-color);
@@ -224,6 +238,7 @@ nav > a{
     align-items: center;
     justify-content: space-around;
     width: 30%;
+    max-width: 320px;
 }
 .logout {
     font-family: inherit;
@@ -241,6 +256,10 @@ nav > a{
 .footer{
     background-color:var(--orange-color);
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
 }
 .app{
     display: flex;

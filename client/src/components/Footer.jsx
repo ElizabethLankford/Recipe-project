@@ -1,7 +1,9 @@
+import logo from "../assets/recipeicon.png";
+
 function Footer() {
   return (
     <div className="footer">
-      <h3>footer</h3>
+      <img height={25} src={logo} /> <h3>Familiar Recipes </h3>
     </div>
   );
 }

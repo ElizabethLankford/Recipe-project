@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectCurrentToken, selectCurrentUser } from "../redux/tokenSlice";
 import { useFetchUsersFavRecipesQuery } from "../redux/recipeApi";
+import logo from "../assets/recipe-book.png";
 
 function Favorites() {
   const token = useSelector(selectCurrentToken);
@@ -22,7 +23,10 @@ function Favorites() {
   return (
     <div className="container">
       <div>
-        <h3>Favorite Recipes :</h3>
+        <div className="title-fav">
+          <img height={30} src={logo} /> <h3>Favorite Recipes :</h3>
+        </div>
+
         {data.map((recipe) => {
           return (
             <div className="recipe-card" key={recipe.recipeid}>

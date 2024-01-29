@@ -32,7 +32,7 @@ function AddRecipe() {
 
   return (
     <div className="container">
-      <form className="form-container" onSubmit={handleSubmit}>
+      <form className="form-container form" onSubmit={handleSubmit}>
         <h2>Add a New Recipe</h2>
         <label>
           Recipe Name:

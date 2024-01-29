@@ -23,7 +23,7 @@ function Navbar() {
     <header>
       <div className="logo-div">
         <img height={40} src={logo} />
-        <h1>Recipe App</h1>
+        <h1>Familiar Recipes</h1>
       </div>
       {token ? (
         <nav>

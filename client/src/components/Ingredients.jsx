@@ -24,7 +24,7 @@ function Ingredients() {
         {data.map((ing) => {
           return (
             <li key={ing.ingredientid}>
-              {ing.ingredientquantity}
+              {ing.ingredientquantity}{" "}
               {ing.measurementname == "NA" ? " " : ing.measurementname}{" "}
               {ing.ingredientname}
             </li>

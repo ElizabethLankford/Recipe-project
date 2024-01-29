@@ -4,56 +4,69 @@ import {
   useAddIngToRecipeMutation,
 } from "../redux/recipeApi";
 import Ingredients from "./Ingredients";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function AddIngredients() {
   const { recipeId } = useParams();
-
+  const [isUpdated, setIsUpdated] = useState(false);
   const [ingredientName, setIngredientName] = useState({
     name: "",
   });
-
   const [ingredientInfo, setIngredientInfo] = useState({
     recipeid: recipeId,
     ingredientid: "",
-    measureid: 10,
+    measureid: 1,
     amount: 0,
   });
-  const [newIngredient] = useAddIngredientsMutation();
+  const [newIngredient, { data, isSuccess }] = useAddIngredientsMutation();
   const [linkIngredient] = useAddIngToRecipeMutation();
 
   const handleAddIngredient = async (e) => {
     e.preventDefault();
-
     try {
-      await newIngredient(ingredientName.name, recipeId)
+      const promisedId = await newIngredient(ingredientName.name, recipeId)
         .unwrap()
         .then((res) => {
-          let id = res;
-          setIngredientInfo((prevInfo) => {
-            return { ...prevInfo, ingredientid: id };
-          });
-        })
-        .catch((rejected) => console.error(rejected));
-      console.log(ingredientInfo.ingredientid);
-      if (ingredientInfo.ingredientid) {
-        await linkIngredient({ ...ingredientInfo })
-          .unwrap()
-          .then((res) => console.log(res))
-          .catch((rejected) => console.error(rejected));
-      } else {
-        console.log("ing_id issue");
-      }
+          res;
+        });
+      setIngredientInfo({ ...ingredientInfo, ingredientid: promisedId });
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    console.log(ingredientInfo);
-  }, []);
+    async function setIdFunc() {
+      if (isSuccess) {
+        setIngredientInfo({ ...ingredientInfo, ingredientid: data });
+        setIsUpdated(true);
+      }
+    }
+    setIdFunc();
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isUpdated) {
+      linkIngredient({ ...ingredientInfo })
+        .unwrap()
+        .then((res) => console.log(res))
+        .then(() => {
+          setIsUpdated(false);
+          setIngredientName({
+            name: "",
+          });
+          setIngredientInfo({
+            recipeid: recipeId,
+            ingredientid: "",
+            measureid: 1,
+            amount: 0,
+          });
+        });
+    }
+  }, [isUpdated]);
+
   return (
-    <div>
+    <div className="container">
       <Ingredients />
       <form className="ing-form" onSubmit={handleAddIngredient}>
         <label>
@@ -98,7 +111,8 @@ function AddIngredients() {
             onChange={(e) => setIngredientName({ name: e.target.value })}
           />
         </label>
-        <button>Add Ingredient</button>
+        <button className="add-ing-btn">Add Ingredient</button>
+        <Link to="/">Back to Recipes</Link>
       </form>
     </div>
   );
