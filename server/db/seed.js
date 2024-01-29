@@ -127,21 +127,66 @@ const createInitialRecipe_Ingredients = async () => {
   try {
     await client.query(`
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-   VALUES (1,1, 10, 1);
+   VALUES (1,16, 12, 1);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-   VALUES (1,2, 10, 2);
+   VALUES (1,17, 3, 2);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (1,19, 4, 8);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (1,20, 4, 6);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (1,26, 2, 0);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (1,21, 8, 2);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (1,22, 6, 1.5);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (1,23, 6, 1.5);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (1,24, 2, 0);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (1,25, 4, 16);
+
 
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-   VALUES (2,8, 5, 1);
+   VALUES (2,6, 3, 3);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-   VALUES (2,9, 5, 1);
+   VALUES (2,11, 6, 7);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (2,5,7,2);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (2,4,6,1);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (2,12,8,2.5);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (2,3,1,2);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (2,13,7,6);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (2,14,6,2);
 
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-   VALUES (3,3, 10, 2);
+   VALUES (3,6,8,2);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-   VALUES (3,6, 5, 1);
+   VALUES (3,5,8,2);
    INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
-   VALUES (3,7, 5, 1);
+   VALUES (3,27,8,3/4);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (3,11,6,2);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (3,28,6,2);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (3,4,6,1);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (3,12,8,1);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (3,29,8,1/5);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (3,3,1,2);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (3,14,7,1);
+   INSERT INTO recipe_ingredients (recipe_id, ingredient_id, measure_id, ingredient_quantity)
+   VALUES (3,30,8,1);
    `);
     console.log("Recipe_ingredients table populated!");
   } catch (error) {
@@ -171,11 +216,11 @@ const createUserRecipes = async () => {
   try {
     await client.query(`
     INSERT INTO user_recipes (user_id,recipe_id)
-    VALUES (5,3 );
+    VALUES (1,2 );
     INSERT INTO user_recipes (user_id,recipe_id)
-    VALUES (5,2 );
+    VALUES (1,3 );
     INSERT INTO user_recipes (user_id,recipe_id)
-    VALUES (6,3 );
+    VALUES (2,3 );
     `);
     console.log("created users recipes!");
   } catch (error) {
