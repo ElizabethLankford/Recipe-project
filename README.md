@@ -20,9 +20,9 @@ The frontend was built using Javascript, HTML, CSS and React. State management w
 - Postgres (database)
 - Express.js (API routing)
 
-![](./client/src/assets/images/Macbook-recipe.png)
+![](./client/src/assets/Macbook-recipe.png)
 
-![](./client/src/assets/images/Macbook-singlerecipe.png)
+![](./client/src/assets/Macbook-singlerecipe.png)
 
 ## Author
 
