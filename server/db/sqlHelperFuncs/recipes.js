@@ -141,11 +141,14 @@ const updateRecipe = async (id, fields) => {
 
 const deleteRecipe = async (recipeId) => {
   try {
-    const { rows } = await client.query(
-      'DELETE FROM recipes WHERE "id"=$1 RETURNING *',
+    const {
+      rows: [recipe],
+    } = await client.query(
+      `
+      DELETE FROM recipes WHERE "id"=$1 RETURNING *;`,
       [recipeId]
     );
-    return rows[0];
+    return recipe;
   } catch (error) {
     throw error;
   }

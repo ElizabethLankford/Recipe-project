@@ -1,6 +1,7 @@
 import {
   useFetchSingleRecipeQuery,
   useAddRecipeToFavsMutation,
+  useDeleteRecipeMutation,
 } from "../redux/recipeApi";
 import { selectCurrentUser, selectCurrentToken } from "../redux/tokenSlice";
 import { useParams, Link } from "react-router-dom";
@@ -14,6 +15,7 @@ function SingleRecipe() {
 
   const { data, error, isLoading } = useFetchSingleRecipeQuery(recipeId);
   const [addToFavs] = useAddRecipeToFavsMutation();
+  const [deleteRecipe] = useDeleteRecipeMutation();
 
   const handleAdd = async () => {
     await addToFavs({ userId: user.id, recipeId: recipeId })
@@ -21,7 +23,12 @@ function SingleRecipe() {
       .then((res) => console.log(res))
       .catch((rejected) => console.error(rejected));
   };
-
+  const handleDelete = () => {
+    deleteRecipe({ recipeId })
+      .unwrap()
+      .then((res) => console.log(res))
+      .catch((rejected) => console.error(rejected));
+  };
   if (isLoading) {
     return <div>Is Loading...</div>;
   }
@@ -47,6 +54,7 @@ function SingleRecipe() {
             </button>
           )}
         </div>
+        <button onClick={handleDelete}>Delete</button>
       </div>
       <Ingredients />
     </div>

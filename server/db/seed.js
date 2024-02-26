@@ -5,12 +5,12 @@ const dropTables = async () => {
   try {
     console.log("Dropping tables...");
     await client.query(`
-        DROP TABLE IF EXISTS user_recipes;
-        DROP TABLE IF EXISTS recipe_ingredients;
-        DROP TABLE IF EXISTS recipes;
-        DROP TABLE IF EXISTS ingredients;
-        DROP TABLE IF EXISTS measurements;
-        DROP TABLE IF EXISTS users;
+        DROP TABLE IF EXISTS user_recipes CASCADE;
+        DROP TABLE IF EXISTS recipe_ingredients CASCADE;
+        DROP TABLE IF EXISTS recipes CASCADE;
+        DROP TABLE IF EXISTS ingredients CASCADE;
+        DROP TABLE IF EXISTS measurements CASCADE;
+        DROP TABLE IF EXISTS users CASCADE;
         
 
         `);
@@ -54,7 +54,7 @@ const createTables = async () => {
         );
         CREATE TABLE recipe_ingredients (
             recipe_ing_id SERIAL PRIMARY KEY,
-            recipe_id INTEGER REFERENCES recipes(id) NOT NULL,
+            recipe_id INTEGER REFERENCES recipes(id) ON DELETE CASCADE NOT NULL,
             ingredient_id INTEGER REFERENCES ingredients(id) NOT NULL,
             measure_id INTEGER REFERENCES measurements(id),
             ingredient_quantity FLOAT
