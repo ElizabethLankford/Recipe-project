@@ -12,7 +12,7 @@ const recipeApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Recipe", "Ingredient", "User"],
+  tagTypes: ["Recipe", "Ingredient", "User", "Favorites"],
 
   endpoints: (builder) => ({
     fetchRecipes: builder.query({
@@ -33,6 +33,7 @@ const recipeApi = createApi({
         method: "POST",
         body: { username, password, firstname, lastname, email },
       }),
+      providesTags: ["User"],
     }),
     login: builder.mutation({
       query: (data) => ({
@@ -40,6 +41,7 @@ const recipeApi = createApi({
         method: "POST",
         body: { ...data },
       }),
+      providesTags: ["User"],
     }),
     fetchAllUsers: builder.query({
       query: () => "users",
@@ -47,7 +49,7 @@ const recipeApi = createApi({
     }),
     fetchUsersFavRecipes: builder.query({
       query: (userId) => `users/${userId}/favorites`,
-      providesTags: ["User"],
+      providesTags: ["User", "Favorites"],
     }),
     addRecipeToFavs: builder.mutation({
       query: ({ userId, recipeId }) => ({
@@ -55,6 +57,7 @@ const recipeApi = createApi({
         method: "POST",
         body: { userId, recipeId },
       }),
+      invalidatesTags: ["User", "Favorites"],
     }),
     addNewRecipe: builder.mutation({
       query: (data) => ({

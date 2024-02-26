@@ -9,7 +9,9 @@ function Favorites() {
   const user = useSelector(selectCurrentUser);
 
   const { data, isLoading, error } = useFetchUsersFavRecipesQuery(user.id);
+
   console.log("data", data);
+
   if (!token) {
     return;
   }
