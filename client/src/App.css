@@ -136,6 +136,18 @@ button{
     text-decoration: none;
     color: rgb(235, 241, 241);
 }
+.delete{
+    background-color: var(--pink-color-dk);
+    margin-left: 1em;
+    font-family: inherit;
+    padding: .5em 1em;
+    border: 1px solid var(--pink-color-lg);
+    border-radius: 1em;
+}
+.delete:hover{
+    background-color: red;
+    color: white;
+}
 
 /*ADD RECIPE STYLES*/
 
