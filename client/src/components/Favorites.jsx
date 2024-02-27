@@ -16,14 +16,18 @@ function Favorites() {
     return;
   }
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return (
+      <div className="container">
+        <h1>Loading...</h1>
+      </div>
+    );
   }
   if (error) {
     return <h1>Error {error.message} </h1>;
   }
 
   return (
-    <div className="container">
+    <div className="favs-container">
       <div>
         <div className="title-fav">
           <img height={30} src={logo} /> <h3>Favorite Recipes :</h3>

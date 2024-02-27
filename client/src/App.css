@@ -86,6 +86,7 @@ button{
     display: flex;
     align-items: center;
     gap: .5em;
+    
 }
 .recipe-card > div {
     width: 50%;
@@ -95,6 +96,7 @@ button{
     height: 200px;
     width: 50%;
     border-radius: .5em;
+    max-width: 500px;
 }
 .recipe-info{
     text-transform: capitalize;
@@ -150,7 +152,16 @@ button{
 }
 
 /*ADD RECIPE STYLES*/
-
+.new-recipe-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1.2em;
+}
+.new-recipe-form > h2{
+    font-weight: bolder;
+}
 .ing-form{
 display: flex;
 flex-direction: column;
@@ -158,7 +169,10 @@ justify-content: center;
 align-items: center;
 gap: 10px;
 }
-
+.add-btn{
+    font-size: 1.5em;
+    width: 300px;
+}
 
 /*INGREDIENT STYLES*/
 .ing-contianer{
@@ -170,6 +184,9 @@ gap: 10px;
     gap: 10px;
     align-items: center;
     border-bottom: 2px solid var(--pink-color-dk);
+}
+.ing-title-container > h3{
+    padding-left: 1em;
 }
 li{
     padding: .3em;
@@ -185,10 +202,22 @@ li{
     text-transform: uppercase;
 }
 /*FAVORITES STYLES*/
+.favs-container{
+    display: flex;
+    margin: auto;
+    height: 100%;
+    align-items: start;
+    justify-content: space-between;
+    padding-top: 2em;
+}
 .title-fav{
     display: flex;
     align-items: center;
     width: fit-content;
+    font-size: 1.3em;
+}
+.title-fav >h3{
+    padding-left: .8em;
 }
 /*ACCOUNT STYLES*/
 .account-container{
@@ -223,8 +252,18 @@ color: black;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     padding: 1em;
+    font-size: 1.2em;
+}
+.label{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.label> input{
+    font-size: 1em
 }
 /*NAVBAR STYLES*/
 header {
@@ -246,12 +285,21 @@ nav > a{
     color: var(--green-color-dk);
     font-weight: 700;
 }
+nav > a:hover{
+    color: black;
+}
 .logo-div{
     display: flex;
     align-items: center;
     justify-content: space-around;
     width: 30%;
     max-width: 320px;
+}
+.logo-div > a{
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
 }
 .logout {
     font-family: inherit;

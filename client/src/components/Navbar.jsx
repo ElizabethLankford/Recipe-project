@@ -22,8 +22,10 @@ function Navbar() {
   return (
     <header>
       <div className="logo-div">
-        <img height={40} src={logo} />
-        <h1>Familiar Recipes</h1>
+        <Link to="/">
+          <img height={40} src={logo} />
+          <h1>Familiar Recipes</h1>
+        </Link>
       </div>
       {token ? (
         <nav>

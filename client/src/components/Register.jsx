@@ -55,15 +55,16 @@ function Register() {
     <div className="container form-container">
       <form className="form" onSubmit={handleSubmit}>
         <h2>Register </h2>
-        <label>
+        <label className="label">
           Firstname:
           <input
             value={user.firstname}
             onChange={(e) => setUser({ ...user, firstname: e.target.value })}
+            autoFocus
             required
           />
         </label>
-        <label>
+        <label className="label">
           Lastname:
           <input
             value={user.lastname}
@@ -71,7 +72,7 @@ function Register() {
             required
           />
         </label>
-        <label>
+        <label className="label">
           Username:
           <input
             value={user.username}
@@ -79,7 +80,7 @@ function Register() {
             required
           />
         </label>
-        <label>
+        <label className="label">
           Email:
           <input
             value={user.email}
@@ -88,7 +89,7 @@ function Register() {
             required
           />
         </label>
-        <label>
+        <label className="label">
           Password:
           <input
             value={user.password}
@@ -97,7 +98,7 @@ function Register() {
             required
           />
         </label>
-        <label>
+        <label className="label">
           Confirm password:
           <input
             value={user.confirmPassword}

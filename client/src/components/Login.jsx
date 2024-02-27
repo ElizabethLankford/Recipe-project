@@ -33,15 +33,16 @@ function Login() {
     <div className="container form-container">
       <form className="form" onSubmit={handleSubmit}>
         <h2>Login</h2>
-        <label>
+        <label className="label">
           Username:
           <input
+            autoFocus
             onChange={(e) =>
               setUserLogin({ ...userLogin, username: e.target.value })
             }
           />
         </label>
-        <label>
+        <label className="label">
           Password:
           <input
             type="password"

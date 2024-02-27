@@ -17,7 +17,11 @@ function Recipes() {
   const filteredRecipes = getFilteredRecipes(searchString, data);
 
   if (isLoading) {
-    return <div>is loading...</div>;
+    return (
+      <div className="container">
+        <h1>Loading...</h1>
+      </div>
+    );
   }
   if (error) {
     return <div>Error: {error.message}</div>;

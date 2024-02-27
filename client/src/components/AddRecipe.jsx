@@ -32,17 +32,18 @@ function AddRecipe() {
 
   return (
     <div className="container">
-      <form className="form-container form" onSubmit={handleSubmit}>
-        <h2>Add a New Recipe</h2>
-        <label>
+      <form className=" new-recipe-form" onSubmit={handleSubmit}>
+        <h2>ADD A NEW RECIPE</h2>
+        <label className="label">
           Recipe Name:
           <input
+            autoFocus
             onChange={(e) =>
               setRecipeInfo({ ...recipeInfo, name: e.target.value })
             }
           />
         </label>
-        <label>
+        <label className="label">
           Description:
           <input
             onChange={(e) =>
@@ -50,7 +51,7 @@ function AddRecipe() {
             }
           />
         </label>
-        <label>
+        <label className="label">
           Category:
           <input
             onChange={(e) =>
@@ -58,7 +59,7 @@ function AddRecipe() {
             }
           />
         </label>
-        <label>
+        <label className="label">
           Image URL:
           <input
             onChange={(e) =>
@@ -66,15 +67,17 @@ function AddRecipe() {
             }
           />
         </label>
-        <label>
+        <label className="label">
           Instructions:
           <textarea
+            rows="5"
+            cols="40"
             onChange={(e) =>
               setRecipeInfo({ ...recipeInfo, instructions: e.target.value })
             }
           />
         </label>
-        <button className="form-btn">Add Recipe</button>
+        <button className="form-btn add-btn">Add Recipe</button>
       </form>
     </div>
   );
