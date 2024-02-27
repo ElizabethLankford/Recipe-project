@@ -3,7 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const recipeApi = createApi({
   reducerPath: "recipeApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://familiar-recipes-api.onrender.com/api",
+    // baseUrl: "https://familiar-recipes-api.onrender.com/api",
+    baseUrl: "http://localhost:8081/api/",
     prepareHeaders: (headers, { getState }) => {
       const { token } = getState();
       token
