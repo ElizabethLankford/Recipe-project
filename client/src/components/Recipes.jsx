@@ -33,6 +33,9 @@ function Recipes() {
             onChange={(e) => setSearchString(e.target.value)}
           />
         </label>
+        <button className="add-rec-btn">
+          <Link to="/addrecipe">Add a Recipe</Link>
+        </button>
       </div>
       <div className="recipe-card-container">
         {filteredRecipes.map((recipe) => {
