@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../redux/tokenSlice";
 
 function Register() {
+  const [err, setErr] = useState("");
   const [user, setUser] = useState({
     firstname: "",
-    lastname: "",
     username: "",
     email: "",
     password: "",
@@ -20,23 +20,21 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(user);
-    const { firstname, lastname, username, email, password, confirmPassword } =
-      user;
+    const { firstname, username, email, password, confirmPassword } = user;
     if (password === confirmPassword) {
       console.log("passwords Match!");
       await register({
         username,
         password,
         firstname,
-        lastname,
         email,
       }).unwrap();
     } else if (password !== confirmPassword) {
+      setErr("Error: passwords do not match!");
       console.log("Error: passwords do not match!");
     }
     setUser({
       firstname: "",
-      lastname: "",
       username: "",
       email: "",
       password: "",
@@ -55,19 +53,12 @@ function Register() {
     <div className="container form-container">
       <form className="form" onSubmit={handleSubmit}>
         <h2>Register </h2>
+        <p>{err ? err : ""}</p>
         <label>
-          Firstname:
+          Name:
           <input
             value={user.firstname}
             onChange={(e) => setUser({ ...user, firstname: e.target.value })}
-            required
-          />
-        </label>
-        <label>
-          Lastname:
-          <input
-            value={user.lastname}
-            onChange={(e) => setUser({ ...user, lastname: e.target.value })}
             required
           />
         </label>

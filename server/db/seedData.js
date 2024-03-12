@@ -32,7 +32,7 @@ const recipes = [
     Whisk in the milk, oil, eggs, and vanilla till smooth. Stir in the boiling water, mixing until smooth.
     Divide batter evenly between the two pans. Bake at 350°F for 30-35 minutes or till toothpick inserted in the center comes out clean.
     Cool for 10 minutes in the pans, then invert onto cooling racks. Cool completely. Stack cakes and pair with your favorite frosing or topping.`,
-    category: "dessert",
+    category: "Dessert",
   },
 ];
 
@@ -88,15 +88,7 @@ const users = [
     username: "test",
     password: "test",
     firstname: "name",
-    lastname: "lastname",
     email: "test@email.com",
-  },
-  {
-    username: "test1",
-    password: "test1",
-    firstname: "name",
-    lastname: "lastname",
-    email: "test1@email.com",
   },
 ];
 

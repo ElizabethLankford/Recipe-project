@@ -27,13 +27,12 @@ router.get("/", async (req, res, next) => {
 //POST = /api/users/register = create a new user
 router.post("/register", async (req, res, next) => {
   try {
-    const { username, password, firstname, lastname, email } = req.body;
+    const { username, password, firstname, email } = req.body;
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
     const user = await createUser({
       username,
       password: hashedPassword,
       firstname,
-      lastname,
       email,
     });
     delete user.password;

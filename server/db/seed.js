@@ -45,16 +45,15 @@ const createTables = async () => {
           username VARCHAR(100) UNIQUE NOT NULL,
           password VARCHAR(100) NOT NULL,
           firstname VARCHAR(100),
-          lastname VARCHAR(100),
           email VARCHAR(100)
       );
         CREATE TABLE user_recipes (
             user_id INTEGER REFERENCES users(id) NOT NULL,
-            recipe_id INTEGER REFERENCES recipes(id) NOT NULL
+            recipe_id INTEGER REFERENCES recipes(id) ON DELETE CASCADE
         );
         CREATE TABLE recipe_ingredients (
             recipe_ing_id SERIAL PRIMARY KEY,
-            recipe_id INTEGER REFERENCES recipes(id) ON DELETE CASCADE NOT NULL,
+            recipe_id INTEGER REFERENCES recipes(id) ON DELETE CASCADE,
             ingredient_id INTEGER REFERENCES ingredients(id) NOT NULL,
             measure_id INTEGER REFERENCES measurements(id),
             ingredient_quantity FLOAT
@@ -199,8 +198,8 @@ const createInitialUsers = async () => {
     const usersPromise = users.map((user) => {
       return client.query(
         `
-            INSERT INTO users (username,password,firstname,lastname,email)
-            VALUES ($1, $2, $3, $4, $5)
+            INSERT INTO users (username,password,firstname,email)
+            VALUES ($1, $2, $3, $4)
             RETURNING *;
             `,
         Object.values(user)
@@ -219,8 +218,6 @@ const createUserRecipes = async () => {
     VALUES (1,2 );
     INSERT INTO user_recipes (user_id,recipe_id)
     VALUES (1,3 );
-    INSERT INTO user_recipes (user_id,recipe_id)
-    VALUES (2,3 );
     `);
     console.log("created users recipes!");
   } catch (error) {

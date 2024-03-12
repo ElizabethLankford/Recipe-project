@@ -1,12 +1,6 @@
 const client = require("../client");
 
-const createUser = async ({
-  username,
-  password,
-  firstname,
-  lastname,
-  email,
-}) => {
+const createUser = async ({ username, password, firstname, email }) => {
   try {
     const {
       rows: [user],
@@ -15,12 +9,11 @@ const createUser = async ({
     INSERT INTO users( username,
         password,
         firstname,
-        lastname,
         email)
-    VALUES($1, $2, $3, $4, $5)
+    VALUES($1, $2, $3, $4)
     RETURNING *;
     `,
-      [username, password, firstname, lastname, email]
+      [username, password, firstname, email]
     );
     return user;
   } catch (error) {

@@ -6,7 +6,8 @@ function AddRecipe() {
   const [recipeInfo, setRecipeInfo] = useState({
     name: "",
     description: "",
-    image: "",
+    image:
+      "https://images.pexels.com/photos/1660030/pexels-photo-1660030.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     instructions: "",
     category: "",
   });
@@ -37,6 +38,7 @@ function AddRecipe() {
         <label>
           Recipe Name:
           <input
+            required
             onChange={(e) =>
               setRecipeInfo({ ...recipeInfo, name: e.target.value })
             }
@@ -52,11 +54,19 @@ function AddRecipe() {
         </label>
         <label>
           Category:
-          <input
+          <select
             onChange={(e) =>
               setRecipeInfo({ ...recipeInfo, category: e.target.value })
             }
-          />
+          >
+            <option value=""></option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Snack">Snack</option>
+            <option value="Drink">Drink</option>
+            <option value="Dessert">Dessert</option>
+          </select>
         </label>
         <label>
           Image URL:
@@ -74,7 +84,7 @@ function AddRecipe() {
             }
           />
         </label>
-        <button className="form-btn">Add Recipe</button>
+        <button className="form-btn">Ready to add Ingredients!</button>
       </form>
     </div>
   );

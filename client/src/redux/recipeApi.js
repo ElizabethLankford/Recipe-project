@@ -3,7 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const recipeApi = createApi({
   reducerPath: "recipeApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://familiar-recipes-api.onrender.com/api",
+    baseUrl: "http://localhost:8081/api/",
+    //baseUrl: "https://familiar-recipes-api.onrender.com/api",
     prepareHeaders: (headers, { getState }) => {
       const { token } = getState();
       token
@@ -28,10 +29,10 @@ const recipeApi = createApi({
       providesTags: ["Ingredient"],
     }),
     register: builder.mutation({
-      query: ({ username, password, firstname, lastname, email }) => ({
+      query: ({ username, password, firstname, email }) => ({
         url: "users/register",
         method: "POST",
-        body: { username, password, firstname, lastname, email },
+        body: { username, password, firstname, email },
       }),
       providesTags: ["User"],
     }),
