@@ -53,7 +53,7 @@ function Register() {
     <div className="container form-container">
       <form className="form" onSubmit={handleSubmit}>
         <h2>Register </h2>
-        <p>{err ? err : ""}</p>
+        {err ? <p>{err}</p> : ""}
         <label>
           Name:
           <input
