@@ -9,15 +9,17 @@ function Recipes() {
     if (!query) {
       return recipes;
     }
-    return recipes.filter((recipe) =>
-      recipe.name.toLowerCase().includes(query)
+    return recipes.filter(
+      (recipe) =>
+        recipe.name.toLowerCase().includes(query) ||
+        recipe.category.toLowerCase().includes(query)
     );
   };
 
   const filteredRecipes = getFilteredRecipes(searchString, data);
 
   if (isLoading) {
-    return <div>is loading...</div>;
+    return <div className="loading">is loading...</div>;
   }
   if (error) {
     return <div>Error: {error.message}</div>;

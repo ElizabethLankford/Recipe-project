@@ -20,7 +20,7 @@ function SingleRecipe() {
   const handleAdd = async () => {
     await addToFavs({ userId: user.id, recipeId: recipeId })
       .unwrap()
-      .then(() => alert(`${data.name} added to your favorites!`))
+      .then(() => alert(`${data.name} has been added to your favorites!`))
       .catch((rejected) => console.error(rejected));
   };
   const handleDelete = () => {
