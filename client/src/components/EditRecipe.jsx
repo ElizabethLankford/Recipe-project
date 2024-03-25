@@ -1,39 +1,33 @@
+import { useUpdateRecipeMutation } from "../redux/recipeApi";
 import { useState, useEffect } from "react";
-import { useAddNewRecipeMutation } from "../redux/recipeApi";
-import { useNavigate } from "react-router-dom";
 
-function AddRecipe() {
+function EditRecipe(data) {
   const [recipeInfo, setRecipeInfo] = useState({
-    name: "",
-    description: "",
-    image:
-      "https://images.pexels.com/photos/1660030/pexels-photo-1660030.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    instructions: "",
-    category: "",
+    id: data.recipe.id,
+    name: data.recipe.name,
+    description: data.recipe.description,
+    image: data.recipe.image,
+    instructions: data.recipe.instructions,
+    category: data.recipe.category,
   });
-
-  const navigate = useNavigate();
-
-  const [newRecipe, { data, isSuccess }] = useAddNewRecipeMutation();
-
-  const handleSubmit = async (e) => {
+  const [updateRecipe, { isdata, isSuccess }] = useUpdateRecipeMutation();
+  const handleUpdate = async (e) => {
     e.preventDefault();
-    await newRecipe({ ...recipeInfo })
+    await updateRecipe({ ...recipeInfo })
       .unwrap()
       .then((res) => res)
       .catch((rejected) => console.error(rejected));
   };
-
   useEffect(() => {
     if (isSuccess) {
-      navigate(`/addrecipe/${data.id}`);
+      isdata;
     }
   }, [isSuccess]);
 
   return (
-    <div className="container">
-      <form className="form-container form" onSubmit={handleSubmit}>
-        <h2>Add a New Recipe</h2>
+    <div className="modal">
+      <form className="form" onSubmit={handleUpdate}>
+        <h3>Edit Recipe</h3>
         <label>
           Recipe Name:
           <input
@@ -83,10 +77,10 @@ function AddRecipe() {
             }
           />
         </label>
-        <button className="form-btn">Ready to add Ingredients!</button>
+        <button className="update">Update Recipe</button>
       </form>
     </div>
   );
 }
 
-export default AddRecipe;
+export default EditRecipe;

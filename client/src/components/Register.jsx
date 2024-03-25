@@ -19,10 +19,8 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(user);
     const { firstname, username, email, password, confirmPassword } = user;
     if (password === confirmPassword) {
-      console.log("passwords Match!");
       await register({
         username,
         password,
@@ -31,7 +29,6 @@ function Register() {
       }).unwrap();
     } else if (password !== confirmPassword) {
       setErr("Error: passwords do not match!");
-      console.log("Error: passwords do not match!");
     }
     setUser({
       firstname: "",

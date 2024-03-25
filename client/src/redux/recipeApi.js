@@ -91,6 +91,14 @@ const recipeApi = createApi({
       }),
       invalidatesTags: ["Recipe"],
     }),
+    updateRecipe: builder.mutation({
+      query: (data) => ({
+        url: `recipes/${data.id}`,
+        method: "PATCH",
+        body: { ...data },
+      }),
+      invalidatesTags: ["Recipe"],
+    }),
   }),
 });
 
@@ -109,4 +117,5 @@ export const {
   useAddRecipeToFavsMutation,
   useAddNewRecipeMutation,
   useDeleteRecipeMutation,
+  useUpdateRecipeMutation,
 } = recipeApi;

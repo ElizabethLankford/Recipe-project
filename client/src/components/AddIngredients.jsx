@@ -49,7 +49,7 @@ function AddIngredients() {
     if (isUpdated) {
       linkIngredient({ ...ingredientInfo })
         .unwrap()
-        .then((res) => console.log(res))
+        .then((res) => res)
         .then(() => {
           setIsUpdated(false);
           setIngredientName({

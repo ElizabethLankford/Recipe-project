@@ -148,7 +148,7 @@ button{
     color: rgb(235, 241, 241);
 }
 .delete{
-    background-color: var(--pink-color-dk);
+    background-color: var(--pink-color-lg);
     margin-left: 1em;
     font-family: inherit;
     padding: .5em 1em;
@@ -449,4 +449,32 @@ span{
         padding: .3em;
         border-radius: .2em;
     }
+}
+
+/*EDIT RECIPE*/
+.edit{
+    background-color: var(--pink-color-dk);
+    margin-left: 1em;
+    font-family: inherit;
+    padding: .5em 1em;
+    border: 1px solid var(--pink-color-lg);
+    border-radius: 1em;
+}
+.hover:hover{
+    background-color: var(--orange-color);
+    color: white;
+}
+.update{
+    background-color: var(--orange-color);
+    margin-left: 1em;
+    font-family: inherit;
+    padding: .5em 1em;
+    border: 1px solid var(--pink-color-lg);
+    border-radius: 1em;
+}
+.update:hover{
+    background-color: #e69513;
+}
+.modal{
+    margin: 1em;
 }

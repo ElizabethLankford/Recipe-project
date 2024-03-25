@@ -13,17 +13,15 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(userLogin);
     const { username, password } = userLogin;
     await login({ username, password })
       .unwrap()
-      .then((res) => console.log(res))
+      .then((res) => res)
       .catch((rejected) => console.error(rejected));
   };
 
   useEffect(() => {
     if (isSuccess) {
-      console.log(data);
       dispatch(setCredentials(data));
       navigate("/account");
     }

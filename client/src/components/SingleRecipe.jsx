@@ -7,12 +7,14 @@ import { selectCurrentUser, selectCurrentToken } from "../redux/tokenSlice";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Ingredients from "./Ingredients";
+import EditRecipe from "./EditRecipe";
+import { useState } from "react";
 
 function SingleRecipe() {
   const { recipeId } = useParams();
   const user = useSelector(selectCurrentUser);
   const token = useSelector(selectCurrentToken);
-
+  const [modal, setModal] = useState(false);
   const { data, error, isLoading } = useFetchSingleRecipeQuery(recipeId);
   const [addToFavs] = useAddRecipeToFavsMutation();
   const [deleteRecipe] = useDeleteRecipeMutation();
@@ -27,7 +29,7 @@ function SingleRecipe() {
     deleteRecipe({ recipeId })
       .unwrap()
       .then((res) => {
-        console.log(res);
+        res;
         navigate("/");
       })
       .catch((rejected) => console.error(rejected));
@@ -57,11 +59,29 @@ function SingleRecipe() {
               <Link to="/login">Login to add to Favorites</Link>
             </button>
           )}
-          <button className="delete" onClick={handleDelete}>
-            Delete Recipe
-          </button>
+          {token ? (
+            <button className="delete" onClick={handleDelete}>
+              Delete Recipe
+            </button>
+          ) : (
+            ""
+          )}
+          {token ? (
+            <button className="edit hover" onClick={() => setModal(!modal)}>
+              {modal ? "Close Edit" : "Edit Recipe"}
+            </button>
+          ) : (
+            <button disabled className="edit" onClick={() => setModal(!modal)}>
+              {modal ? "Close Edit" : "Edit Recipe"}
+            </button>
+          )}
         </div>
       </div>
+      {modal ? (
+        <EditRecipe setModal={setModal} modal={modal} recipe={data} />
+      ) : (
+        ""
+      )}
       <Ingredients />
     </div>
   );

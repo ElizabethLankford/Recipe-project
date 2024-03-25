@@ -28,7 +28,7 @@ function Navbar() {
         <h1>Familiar Recipes</h1>
       </div>
       <div className="icon" onClick={() => setIsOpen(!isOpen)}>
-        {<img height={60} src={menu} />}
+        {<img height={50} src={menu} />}
       </div>
       <nav className={isOpen ? "open" : ""}>
         {token ? (
