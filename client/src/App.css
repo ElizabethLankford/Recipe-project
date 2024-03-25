@@ -418,3 +418,35 @@ span{
         padding: .5em;
     }
 }
+@media screen and (max-width: 460px){
+    .recipe-card{
+        border-radius: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        margin-bottom: 3em;
+    }
+  
+    .recipe-card > div {
+        width: 100%;
+    }
+    .recipe-img{
+        object-fit: cover;
+        height: 200px;
+        width: 100%;
+        border-radius: .5em;
+    }
+    .recipe-info{
+        text-transform: capitalize;
+        margin-left: 1em;
+        width: 50%;
+    }
+    .recipe-info >a {
+        color: black;
+        text-decoration: none;
+        background-color: var(--green-color);
+        padding: .3em;
+        border-radius: .2em;
+    }
+}
