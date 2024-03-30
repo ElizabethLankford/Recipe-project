@@ -36,7 +36,7 @@ function SingleRecipe() {
   };
 
   if (isLoading) {
-    return <div>Is Loading...</div>;
+    return <div className="loading">is loading...</div>;
   }
   if (error) {
     return <div>Error: {error.message}</div>;
