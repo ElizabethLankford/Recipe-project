@@ -228,7 +228,9 @@ li{
 color: black;
 }
 /*LOGIN STYLES*/
-
+.login-err{
+    color: red;
+}
 /*REGISTER STYLES*/
 .form{
     display: flex;

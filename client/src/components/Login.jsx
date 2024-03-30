@@ -6,19 +6,26 @@ import { setCredentials } from "../redux/tokenSlice";
 
 function Login() {
   const [userLogin, setUserLogin] = useState({ username: "", password: "" });
-  const [login, { data, isSuccess }] = useLoginMutation();
+  const [errorMsg, setErrorMsg] = useState("");
+  const [login, { data, isSuccess, isError }] = useLoginMutation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMsg("");
     const { username, password } = userLogin;
     await login({ username, password })
       .unwrap()
       .then((res) => res)
       .catch((rejected) => console.error(rejected));
   };
+  useEffect(() => {
+    if (isError) {
+      setErrorMsg("invalid username or password!");
+    }
+  }, [isError]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -48,6 +55,7 @@ function Login() {
             }
           />
         </label>
+        {errorMsg && <p className="login-err">{errorMsg}</p>}
         <button className="form-btn">Login</button>
       </form>
     </div>
