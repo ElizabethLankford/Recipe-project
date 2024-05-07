@@ -1,6 +1,7 @@
 import { useFetchRecipesQuery } from "../redux/recipeApi";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import Loading from "./Loading";
 
 function Recipes() {
   const [searchString, setSearchString] = useState("");
@@ -19,7 +20,7 @@ function Recipes() {
   const filteredRecipes = getFilteredRecipes(searchString, data);
 
   if (isLoading) {
-    return <div className="loading">is loading...</div>;
+    return <Loading />;
   }
   if (error) {
     return <div>Error: {error.message}</div>;

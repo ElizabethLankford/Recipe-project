@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { selectCurrentToken, selectCurrentUser } from "../redux/tokenSlice";
 import { useFetchUsersFavRecipesQuery } from "../redux/recipeApi";
 import logo from "../assets/recipe-book.png";
+import Loading from "./Loading";
 
 function Favorites() {
   const token = useSelector(selectCurrentToken);
@@ -14,7 +15,7 @@ function Favorites() {
     return;
   }
   if (isLoading) {
-    return <div className="loading">is loading...</div>;
+    return <Loading />;
   }
   if (error) {
     return <h1>Error {error.message} </h1>;

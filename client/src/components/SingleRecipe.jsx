@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import Ingredients from "./Ingredients";
 import EditRecipe from "./EditRecipe";
 import { useState } from "react";
+import Loading from "./Loading";
 
 function SingleRecipe() {
   const { recipeId } = useParams();
@@ -36,7 +37,7 @@ function SingleRecipe() {
   };
 
   if (isLoading) {
-    return <div className="loading">is loading...</div>;
+    return <Loading />;
   }
   if (error) {
     return <div>Error: {error.message}</div>;
