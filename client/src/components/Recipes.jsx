@@ -12,8 +12,8 @@ function Recipes() {
     }
     return recipes.filter(
       (recipe) =>
-        recipe.name.toLowerCase().includes(query) ||
-        recipe.category.toLowerCase().includes(query)
+        recipe.name.toLowerCase().includes(query.toLowerCase()) ||
+        recipe.category.toLowerCase().includes(query.toLowerCase())
     );
   };
 

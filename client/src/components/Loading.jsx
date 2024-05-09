@@ -11,7 +11,7 @@ function Loading() {
     },
   };
   return (
-    <div>
+    <div className="loading">
       <Lottie options={defaultOptions} height={100} width={100} />
     </div>
   );
