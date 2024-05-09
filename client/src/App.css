@@ -415,6 +415,10 @@ span{
     }
     .footer-nav{
         padding: 1em;
+        width: 70%;
+    }
+    .footer-social{
+        width: 70%;
     }
     .footer-nav>a, .footer-social>a>img{
         padding: .5em;
